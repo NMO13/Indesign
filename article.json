@@ -1,0 +1,568 @@
+{
+   "_id": "2b09d260178fa44be9d376e504005396",
+   "_rev": "2-b39dbeb8d08580e6c1a928a0ae44aacd",
+   "doc": {
+       "articleData": {
+           "articleNumberAssignedByMerchantOrSupplier": "1",
+           "name": "Beispiel-Artikel",
+           "description": "Beschreibung von Beispiel-Artikel",
+           "size": "20mm x 30mm",
+           "colorAndShape": "schwarzweiß"
+       },
+       "unbrandedArticlePrice": {
+           "unbrandedArticleScales": [
+               {
+                   "name": "unbranded article scale 1",
+                   "numberOfArticles": "1 - 10",
+                   "price": "20 cent"
+               },
+               {
+                   "name": "unbranded article scale 2",
+                   "numberOfArticles": "11 - 100",
+                   "price": "15 cent"
+               },
+               {
+                   "name": "unbranded article scale 3",
+                   "numberOfArticles": "101 - 300",
+                   "price": "10 cent"
+               },
+               {
+                   "name": "unbranded article scale 4",
+                   "numberOfArticles": "300 - 500",
+                   "price": "8 cent"
+               },
+               {
+                   "name": "unbranded article scale 5",
+                   "numberOfArticles": "500 - 600",
+                   "price": "6 cent"
+               },
+			   {
+                   "name": "unbranded article scale 6",
+                   "numberOfArticles": "ab 600",
+                   "price": "4 cent"
+               }
+           ],
+           "suggestedPrice": "1 cent"
+       },
+       "brandings": [
+           {
+               "name": "print 1c branding",
+               "position": "mittig",
+               "scales": [
+                   {
+                       "name": "print 1c scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "print 1c scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "print 1c scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "print 1c scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "print 1c scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "5 €",
+               "filmCosts": "1 €"
+           },
+           {
+               "name": "additional color branding",
+               "position": "links unten",
+               "scales": [
+                   {
+                       "name": "additional color scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "additional color scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "additional color scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "additional color scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "additional color scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "2 cent",
+               "filmCosts": "0 cent"
+           },
+           {
+               "name": "print 2c branding",
+               "position": "frontal",
+               "scales": [
+                   {
+                       "name": "print 2c scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "print 2c scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "print 2c scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "print 2c scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "print 2c scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "8 €",
+               "filmCosts": "2 €"
+           },
+           {
+               "name": "print 3c branding",
+               "position": "links",
+               "scales": [
+                   {
+                       "name": "print 3c scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "print 3c scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "print 3c scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "print 3c scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "print 3c scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "10 €",
+               "filmCosts": "3 €"
+           },
+           {
+               "name": "print 4c branding",
+               "position": "rechts",
+               "scales": [
+                   {
+                       "name": "print 4c scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "print 4c scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "print 4c scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "print 4c scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "print 4c scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "11 €",
+               "filmCosts": "4 €"
+           },
+           {
+               "name": "digital print 4c branding",
+               "position": "unten",
+               "scales": [
+                   {
+                       "name": "digital print 4c scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "digital print 4c scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "digital print 4c scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "digital print 4c scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "digital print 4c scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "3 €",
+               "filmCosts": "2 €"
+           },
+           {
+               "name": "branding using engraving",
+               "position": "unten",
+               "scales": [
+                   {
+                       "name": "engraving scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "engraving scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "engraving scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "engraving scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "engraving scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "0 €",
+               "filmCosts": "0 €"
+           },
+           {
+               "name": "branding using etching",
+               "position": "unten",
+               "scales": [
+                   {
+                       "name": "etching scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "etching scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "etching scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "etching scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "etching scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "0 €",
+               "filmCosts": "0 €"
+           },
+           {
+               "name": "branding using stitching",
+               "position": "unten",
+               "scales": [
+                   {
+                       "name": "stitching scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "stitching scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "stitching scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "stitching scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "stitching scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "0 €",
+               "filmCosts": "0 €"
+           },
+           {
+               "name": "user defined branding 1 ",
+               "position": "mittig",
+               "scales": [
+                   {
+                       "name": "user defined branding 1 scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "user defined branding 1 scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "user defined branding 1 scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "user defined branding 1 scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "user defined branding 1 scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "3 € ",
+               "filmCosts": "2 €"
+           },
+           {
+               "name": "user defined branding 2 ",
+               "position": "mittig",
+               "scales": [
+                   {
+                       "name": "user defined branding 2 scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "user defined branding 2 scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "user defined branding 2 scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "user defined branding 2 scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "user defined branding 2 scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "3 € ",
+               "filmCosts": "2 €"
+           },
+           {
+               "name": "user defined branding 3 ",
+               "position": "mittig",
+               "scales": [
+                   {
+                       "name": "user defined branding 3 scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "user defined branding 3 scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "user defined branding 3 scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "user defined branding 3 scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "user defined branding 3 scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "3 € ",
+               "filmCosts": "2 €"
+           },
+           {
+               "name": "user defined branding 4 ",
+               "position": "mittig",
+               "scales": [
+                   {
+                       "name": "user defined branding 4 scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "user defined branding 4 scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "user defined branding 4 scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "user defined branding 4 scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "user defined branding 4 scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "3 € ",
+               "filmCosts": "2 €"
+           },
+           {
+               "name": "user defined branding 5 ",
+               "position": "mittig",
+               "scales": [
+                   {
+                       "name": "user defined branding 5 scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "user defined branding 5 scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "user defined branding 5 scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "user defined branding 5 scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "user defined branding 5 scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
+                   }
+               ],
+               "initialCosts": "3 € ",
+               "filmCosts": "2 €"
+           }
+       ],
+       "minimumOrderQuantities": [
+           {
+               "condition": "Artikel ist veredelt",
+               "quantity": "10"
+           },
+           {
+               "condition": "Artikel ist unveredelt",
+               "quantity": "15"
+           },
+           {
+               "condition": "Vollmond",
+               "quantity": "13"
+           }
+       ],
+       "images": [
+           {
+               "url": "http://example.org/supplierXY/images/example-article/main.jpg",
+               "description": "main image of example article"
+           },
+           {
+               "url": "http://example.org/supplierXY/images/example-article/additional-1.jpg",
+               "description": "additional image 1 of example article"
+           },
+           {
+               "url": "http://example.org/supplierXY/images/example-article/additional-2.jpg",
+               "description": "additional image 2 of example article"
+           },
+           {
+               "url": "http://example.org/supplierXY/images/example-article/color-scheme-1.jpg",
+               "description": "color scheme 1 of example article"
+           },
+           {
+               "url": "http://example.org/supplierXY/images/example-article/brand-log.jpg",
+               "description": "brand logo of example article"
+           },
+           {
+               "url": "http://example.org/supplierXY/images/example-article/additional-logo-1.jpg",
+               "description": "additional logo 1 of example article"
+           },
+           {
+               "url": "http://example.org/supplierXY/images/example-article/certificate-1.jpg",
+               "description": "certificate 1 of example article"
+           }
+       ],
+       "remarksOnCatalogCreation": "Danke!",
+       "merchantSpecificFiles": [
+           {
+               "url": "http://example.org/merchantXY/files/cover.pdf",
+               "description": "catalog cover of merchant XY"
+           },
+           {
+               "url": "http://example.org/merchantXY/files/custom-pages.pdf",
+               "description": "custom pages of merchant XY"
+           }
+       ]
+   },
+   "kind": "ArticleFormData"
+}
