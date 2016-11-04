@@ -60,11 +60,10 @@ function renderUnbrandedArticlePrices(textFrame, unbrandedPrices, page) {
     }
 
 function renderBrandingsHeader(textFrame, prevFrame, page) {
-     newLine(textFrame);
      var text = "Veredelung pro Stück";
      
-     var brandingsFrame = page.textFrames.add();
-     brandingsFrame.geometricBounds = [prevFrame.geometricBounds[0] + 5, textFrame.geometricBounds[1], prevFrame.geometricBounds[0] + 200, textFrame.geometricBounds[3]];     
+     var brandingsFrame =  textFrame.insertionPoints[-1].textFrames.add();
+     brandingsFrame.geometricBounds = [prevFrame.geometricBounds[2] + 50, textFrame.geometricBounds[1], prevFrame.geometricBounds[2] + 200, textFrame.geometricBounds[3]];     
      
      brandingsFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
      brandingsFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
@@ -85,8 +84,6 @@ function renderBrandings(brandingsFrame, brandings) {
          renderBrandingEntry(branding, brandingsFrame)
          newLine(brandingsFrame);
          }
-     
-     //brandingsFrame.fit(FitOptions.FRAME_TO_CONTENT);
     }
 
 function renderBrandingEntry(branding, brandingsFrame) {
@@ -145,90 +142,92 @@ function FontInfo(fontSize, fontName, fontColor) {
     this.fontColor = fontColor;
     }
 
-/*function createUnbrandedArticleTable(textFrame, unbrandedPrices, page) {
-    var tf2 = textFrame.insertionPoints[-1].textFrames.add();
-    var bounds = tf2.geometricBounds;
-    
-    var coords = [bounds[0], bounds[1]];
-    
-    var startX = bounds[1];
-    
-    coords[0] += 1;
-    tf2.remove();
-    
-    var lastTextFrame = null;
-    for(var i = 0; i < 2; i++) {
-        createCell(textFrame, page, coords);
-    }
-    return lastTextFrame;
-    }*/
-
 function createUnbrandedArticleTable(textFrame, unbrandedPrices, page) {
     var tf2 = textFrame.insertionPoints[-1].textFrames.add();
-    var bounds = tf2.geometricBounds;
-    
-    var coords = [bounds[0], bounds[1]];
-    
-    var startX = bounds[1];
-    
-    coords[0] += 1;
-    tf2.remove();
+    tf2.geometricBounds = [tf2.geometricBounds[0], tf2.geometricBounds[1], tf2.geometricBounds[2], textFrame.geometricBounds[3]];
+    tf2.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
     
     var lastTextFrame = null;
-    for(var i = 0; i < unbrandedPrices.length; i++) {
-            createHead(coords, page, unbrandedPrices[i].numberOfArticles);
-            coords[0] += 4;
-            lastTextFrame = createBody(coords, page, unbrandedPrices[i].price);
-            
-            if((i + 1) % 5 == 0) {
-                 coords[0] += 4;
-                 coords[0] += 1;
-                 coords[1] = startX;
-                }
-            else {
-                coords[0] -= 4;
-                coords[1] += 17;
-            }
+    createCell(tf2, unbrandedPrices);
+   
+    return tf2;
+    }
+
+function createCell(textFrame, unbrandedPrices) {
+        // Let's build a text frame with a table somewhere on the spread:  
+        var frameWithTable = app.documents[0].layoutWindows[0].activeSpread.textFrames.add  
+        (  
+            {  
+                geometricBounds : [0,0,100,16],  
+                strokeWidth : 0,  
+                strokeColor : "None",  
+                fillColor : "None" 
+            }  
+        );  
+          
+        // Adding a table:  
         
-        }
-    return lastTextFrame;
-    }
+        var table = frameWithTable.insertionPoints[0].tables.add();
+       // table.rows.everyItem().autoGrow = false;
+        table.bodyRowCount = 2;
+        table.columnCount = 1;
+        table.width = 12;
+        table.height = 7;
+        table.rows.everyItem().bottomEdgeStrokeColor = "Paper";
+        table.rows.everyItem().topEdgeStrokeColor = "Paper";
+        table.rows.everyItem().leftEdgeStrokeColor = "Paper";
+        table.rows.everyItem().rightEdgeStrokeColor = "Paper";
+        
+        table.rows.everyItem().bottomEdgeStrokeWeight = 0.5;
+        table.rows.everyItem().topEdgeStrokeWeight = 0.5;
+        table.rows.everyItem().leftEdgeStrokeWeight = 0.5;
+        table.rows.everyItem().rightEdgeStrokeWeight = 0.5;
+        
+        
+        
 
-function createCell(textFrame, page, coords) {
-    //textFrame.geometricBounds = [coords[0], coords[1], coords[0] + 12, coords[1]+ 16];
-    var tf = textFrame.insertionPoints[-1].textFrames.add();
-    
-    tf.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_AND_WIDTH;
-    var table = tf.tables.add();
-    
-    table.bodyRowCount = 2;
-    table.columnCount = 1;
-    table.width = 16;
-    
-    table.rows[0].autoGrow = false;
-    table.rows[1].autoGrow = false;
-    table.rows[0].height = 2;
-    table.rows[1].height = 2;
-    }
-
-function createUnbrandedArticleTable2(textFrame, unbrandedPrices, page) {
-    var table = textFrame.tables.add(LocationOptions.AFTER);
-    table.bodyRowCount = 2;
-    table.columnCount = 1;
-    table.width = 10;
-    table.height = 5;
-    
-    table.cells.everyItem().properties = {
-        topInset:"1mm", bottomInset:"1.5mm",
-        leftEdgeStrokeColor:document.colors.itemByName("Paper"),
-        rightEdgeStrokeColor:document.colors.itemByName("Paper"),
-        bottomEdgeStrokeColor:document.colors.itemByName("Paper"),
-        topEdgeStrokeColor:document.colors.itemByName("Paper")
-};
-    
-    table.cells[0].texts[0].contents = "hudriwoep";
-    table.cells[1].texts[0].contents = "hudriwoep";
-    return textFrame;
+       // table.cells.everyItem().topBorderStrokeColor = "Paper";
+          
+        // Let's fit the frame to the table:  
+        frameWithTable.fit(FitOptions.FRAME_TO_CONTENT);  
+          
+        // Duplicate and anchor the duplicates to the selected text frame:  
+        for(var i=0;i<unbrandedPrices.length;i++)  
+        {  
+            var dup = frameWithTable.duplicate();  
+            dup.anchoredObjectSettings.insertAnchoredObject  
+            (  
+                textFrame.parentStory.insertionPoints[-1] ,  
+                AnchorPosition.INLINE_POSITION  
+            );
+            
+            var cell = dup.tables[0].rows[0].cells[0];
+            var font = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
+            setFontAndText(unbrandedPrices[i].numberOfArticles, font, cell);
+            centerInFrame(cell);
+            
+            cell.topInset = 0;
+            cell.rightInset = 0;
+            cell.leftInset = 0;
+            cell.bottomInset = 0;
+            
+            cell = dup.tables[0].rows[1].cells[0];
+            font = new FontInfo(6, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
+            setFontAndText(unbrandedPrices[i].price, font, cell);
+            centerInFrame(cell);
+            
+            cell.topInset = 0;
+            cell.rightInset = 0;
+            cell.leftInset = 0;
+            cell.bottomInset = 0;
+            
+            dup.fit(FitOptions.FRAME_TO_CONTENT); 
+            // Maybe we need a separator character between the frames?  
+            textFrame.parentStory.insertionPoints[-1].contents = "  ";  
+        }  
+          
+        // Remove the frame we built on the spread:  
+        frameWithTable.remove();  
     }
 
 function createHead(coords, page, number) {
@@ -254,5 +253,5 @@ function createBody(coords, page, price) {
 
 function centerInFrame(textFrame) {
     textFrame.paragraphs[0].justification = Justification.CENTER_ALIGN;  
-    textFrame.textFramePreferences.verticalJustification = VerticalJustification.CENTER_ALIGN;
+    textFrame.verticalJustification = VerticalJustification.CENTER_ALIGN;
     }

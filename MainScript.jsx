@@ -93,8 +93,10 @@ function setDocumentSlug(documentPreference) {
 function insertType(pageIndex) {
     var page = document.pages.item(0);
     var parentFrame = page.textFrames.add();
-    parentFrame.geometricBounds = [6.899, 7.007, 290, 100];
+    parentFrame.geometricBounds = [6.899, 7.007, 1, 100];
     var color = document.colors.itemByName("color0");
+    parentFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    parentFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
 
     
     parentFrame.fillColor = color;
@@ -105,9 +107,11 @@ function insertType(pageIndex) {
 function fillTextFrame(json, parentFrame) {
     var page = document.pages.item(0);
    
-    //var textFrame = parentFrame.insertionPoints[-1].textFrames.add();
-    var textFrame = page.textFrames.add();
+    var textFrame = parentFrame.insertionPoints[-1].textFrames.add();
+  //  var textFrame = page.textFrames.add();
     textFrame.geometricBounds = [10, 10, 100, 100];
+    textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
     
  //   textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
  //   textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
