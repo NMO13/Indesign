@@ -81,8 +81,9 @@ function renderBrandings(brandingsFrame, brandings) {
      
      for(var i = 0; i < brandings.length; i++) {
          var branding = brandings[i];
-         renderBrandingEntry(branding, brandingsFrame)
-         newLine(brandingsFrame);
+         renderBrandingEntry(branding, brandingsFrame);
+         renderInitialCosts(branding.initialCosts, brandingsFrame);
+         renderFilmCosts(branding.filmCosts, brandingsFrame);
          }
     }
 
@@ -95,6 +96,19 @@ function renderBrandingEntry(branding, brandingsFrame) {
         setFontAndText(" - " + scale.price, font0, brandingsFrame);
         setFontAndText(" / ", font0, brandingsFrame);
         }
+    newLine(brandingsFrame);
+    }
+
+function renderInitialCosts(initialCosts, brandingsFrame) {
+    var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
+    setFontAndText("Initiale Kosten: " + initialCosts, font0, brandingsFrame);
+    newLine(brandingsFrame);
+    }
+
+function renderFilmCosts(filmCosts, brandingsFrame) {
+    var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
+    setFontAndText("Beschichtungskosten: " + filmCosts, font0, brandingsFrame);
+    newLine(brandingsFrame);
     }
 
 function renderMinimumOrderQuantities(brandingsFrame, minimumOrderQuantities) {
@@ -182,11 +196,6 @@ function createCell(textFrame, unbrandedPrices) {
         table.rows.everyItem().topEdgeStrokeWeight = 0.5;
         table.rows.everyItem().leftEdgeStrokeWeight = 0.5;
         table.rows.everyItem().rightEdgeStrokeWeight = 0.5;
-        
-        
-        
-
-       // table.cells.everyItem().topBorderStrokeColor = "Paper";
           
         // Let's fit the frame to the table:  
         frameWithTable.fit(FitOptions.FRAME_TO_CONTENT);  
