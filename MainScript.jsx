@@ -1,5 +1,6 @@
 ﻿#include "JsonProcessing.jsx"
 #include "DocumentRendering.jsx"
+#include "ImageRendering.jsx"
 // main code starts here
 
 setupDocument();
@@ -124,8 +125,10 @@ function fillTextFrame(json, parentFrame) {
     renderSuggestedPrice(textFrame, json.doc.unbrandedArticlePrice.suggestedPrice);
     renderUnbrandedArticlePricesHeader(textFrame)
     var prevFrame = renderUnbrandedArticlePrices(textFrame, json.doc.unbrandedArticlePrice.unbrandedArticleScales, page);
+    prevFrame = renderPosition(textFrame, prevFrame, json.doc.brandings[0].position);
     var brandingsFrame = renderBrandingsHeader(textFrame, prevFrame, page);
     renderBrandings(brandingsFrame, json.doc.brandings);
     renderMinimumOrderQuantities(brandingsFrame, json.doc.minimumOrderQuantities);
+    renderImages(json.doc.images);
     //todo fit parent frame
     }

@@ -1,4 +1,7 @@
-﻿function renderDescription(textFrame, description) {
+﻿#include "StringMapping.jsx"
+
+
+function renderDescription(textFrame, description) {
     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
     setFontAndText(description, font, textFrame);
     newLine(textFrame);
@@ -55,8 +58,19 @@ function renderUnbrandedArticlePricesHeader(textFrame) {
 
 function renderUnbrandedArticlePrices(textFrame, unbrandedPrices, page) {
     newLine(textFrame);
-    //return createUnbrandedArticleTable2(textFrame, unbrandedPrices, page);
     return createUnbrandedArticleTable(textFrame, unbrandedPrices, page);
+    }
+
+function renderPosition(textFrame, prevFrame, position) {
+    var text = "Veredelungsfläche: ";
+    
+    var brandingsFrame =  textFrame.insertionPoints[-1].textFrames.add();
+    brandingsFrame.geometricBounds = [prevFrame.geometricBounds[2], textFrame.geometricBounds[1], prevFrame.geometricBounds[2] + 20, textFrame.geometricBounds[3]];     
+    brandingsFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    brandingsFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
+    var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
+    setFontAndText(text  + position, font, brandingsFrame);
+    return brandingsFrame; 
     }
 
 function renderBrandingsHeader(textFrame, prevFrame, page) {
@@ -89,7 +103,7 @@ function renderBrandings(brandingsFrame, brandings) {
 
 function renderBrandingEntry(branding, brandingsFrame) {
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndText(branding.name + ": ", font0, brandingsFrame);
+    setFontAndText(mapBrandingName(branding.name) + ": ", font0, brandingsFrame);
     for(var i = 0; i < branding.scales.length; i++) {
         var scale = branding.scales[i];
         setFontAndText(scale.numberOfArticles, font0, brandingsFrame);
