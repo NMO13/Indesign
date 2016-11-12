@@ -5,7 +5,7 @@
        "articleData": {
            "articleNumberAssignedByMerchantOrSupplier": "1",
            "name": "Beispiel-Artikel",
-           "description": "Beschreibung von Beispiel-Artikel",
+           "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae nunc efficitur, dapibus nisl non, posuere est. Fusce scelerisque est in maximus aliquet. Ut volutpat purus vel hendrerit dignissim. Etiam eu scelerisque justo, non convallis risus.",
            "size": "20mm x 30mm",
            "colorAndShape": "schwarzweiß"
        },
@@ -524,31 +524,31 @@
        ],
        "images": [
            {
-               "url": "http://example.org/supplierXY/images/example-article/main.jpg",
+               "url": "https://mega.nz/#!ygZE3JzQ!tJkEhD1Hvv1G16_zcWtzaPet1SSDIXwC0Jcf-55dDNQ",
                "description": "main image of example article"
            },
            {
-               "url": "http://example.org/supplierXY/images/example-article/additional-1.jpg",
+               "url": "https://mega.nz/#!24xjXZjD!xepIcc-uj3Z9iB8DDTXdFAL6zTbxte1JXolnDZRLc_4",
                "description": "additional image 1 of example article"
            },
            {
-               "url": "http://example.org/supplierXY/images/example-article/additional-2.jpg",
+               "url": "https://mega.nz/#!vo5AHKQS!IthleDByrgF1Pcq-N2cq9gq7syMf6HUNXzwodLRKQdQ",
                "description": "additional image 2 of example article"
            },
            {
-               "url": "http://example.org/supplierXY/images/example-article/color-scheme-1.jpg",
+               "url": "https://mega.nz/#!24xjXZjD!xepIcc-uj3Z9iB8DDTXdFAL6zTbxte1JXolnDZRLc_4",
                "description": "color scheme 1 of example article"
            },
            {
-               "url": "http://example.org/supplierXY/images/example-article/brand-log.jpg",
+               "url": "https://mega.nz/#!24xjXZjD!xepIcc-uj3Z9iB8DDTXdFAL6zTbxte1JXolnDZRLc_4",
                "description": "brand logo of example article"
            },
            {
-               "url": "http://example.org/supplierXY/images/example-article/additional-logo-1.jpg",
+               "url": "https://mega.nz/#!24xjXZjD!xepIcc-uj3Z9iB8DDTXdFAL6zTbxte1JXolnDZRLc_4",
                "description": "additional logo 1 of example article"
            },
            {
-               "url": "http://example.org/supplierXY/images/example-article/certificate-1.jpg",
+               "url": "https://mega.nz/#!24xjXZjD!xepIcc-uj3Z9iB8DDTXdFAL6zTbxte1JXolnDZRLc_4",
                "description": "certificate 1 of example article"
            }
        ],
