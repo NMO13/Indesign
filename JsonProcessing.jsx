@@ -1,6 +1,6 @@
 ﻿
 function parseJson() {
-    var json_file = "article.json";
+    var json_file = "new_example_article.json";
     var read_file = (new File($.fileName)).parent;
     read_file = new File(read_file + "\\" + json_file);
     read_file.open('r');

@@ -117,18 +117,18 @@ function fillTextFrame(json, parentFrame) {
  //   textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
  //   textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
     
-    renderArticleNumber(textFrame, json.doc.articleData.articleNumberAssignedByMerchantOrSupplier);
-    renderName(textFrame, json.doc.articleData.name);
-    renderDescription(textFrame, json.doc.articleData.description);
-    renderSize(textFrame, json.doc.articleData.size);
-    renderColorAndShape(textFrame, json.doc.articleData.colorAndShape);
-    renderSuggestedPrice(textFrame, json.doc.unbrandedArticlePrice.suggestedPrice);
+    renderArticleNumber(textFrame, json.doc.articleData.catalogData.articleNrInCatalog);
+    renderName(textFrame, json.doc.articleFormData.articleData.name);
+    renderDescription(textFrame, json.doc.articleFormData.articleData.description);
+    renderSize(textFrame, json.doc.articleFormData.articleData.size);
+    renderColorAndShape(textFrame, json.doc.articleFormData.articleData.colorAndShape);
+    renderSuggestedPrice(textFrame, json.doc.articleFormData.unbrandedArticlePrice.suggestedPrice);
     renderUnbrandedArticlePricesHeader(textFrame)
-    var prevFrame = renderUnbrandedArticlePrices(textFrame, json.doc.unbrandedArticlePrice.unbrandedArticleScales, page);
-    prevFrame = renderPosition(textFrame, prevFrame, json.doc.brandings[0].position);
+    var prevFrame = renderUnbrandedArticlePrices(textFrame, json.doc.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);
+    prevFrame = renderPosition(textFrame, prevFrame, json.doc.articleFormData.brandings[0].position);
     var brandingsFrame = renderBrandingsHeader(textFrame, prevFrame, page);
-    renderBrandings(brandingsFrame, json.doc.brandings);
-    renderMinimumOrderQuantities(brandingsFrame, json.doc.minimumOrderQuantities);
+    renderBrandings(brandingsFrame, json.doc.articleFormData.brandings);
+    renderMinimumOrderQuantities(brandingsFrame, json.doc.articleFormData.minimumOrderQuantities);
     renderImages(json.doc.images);
     //todo fit parent frame
     }
