@@ -117,7 +117,7 @@ function fillTextFrame(json, parentFrame) {
  //   textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
  //   textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
     
-    renderArticleNumber(textFrame, json.doc.articleData.catalogData.articleNrInCatalog);
+    renderArticleNumber(textFrame, json.doc.articleFormData.catalogData.articleNrInCatalog);
     renderName(textFrame, json.doc.articleFormData.articleData.name);
     renderDescription(textFrame, json.doc.articleFormData.articleData.description);
     renderSize(textFrame, json.doc.articleFormData.articleData.size);

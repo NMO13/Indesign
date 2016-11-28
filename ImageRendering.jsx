@@ -1,15 +1,18 @@
-﻿#include "GetURLs.jsx"
+﻿#include "ImageDownload.jsx"
 
+renderImages(null);
 function renderImages(images) {
-    var url = "https://bilder.ottoversand.at/asset/mmo/baur_format_p/16191566.jpg";
-    downloadImages (url);
+    //var url = "https://bilder.ottoversand.at/asset/mmo/baur_format_p/16191566.jpg";
+    //var url = "https://www.dropbox.com/s/1xny3ot2xmcwwh9/BottleBag_FG.jpg";
+    var url = "https://www.dropbox.com/s/1xny3ot2xmcwwh9/BottleBag_FG.jpg?dl=1";
+    //var url = "https://photos-4.dropbox.com/t/2/AAAV4KpHEPI8Max1tG__Bb5q9Ohh5ehOaCabOnrXhIJC1g/12/245532824/jpeg/32x32/3/1480089600/0/2/BottleBag_FG.jpg/EKfgkt0BGNMFIAcoBw/acm6LxX0hEbdkra_VILfHL-Un1Yv-utaRUgnq2SpaPA?size_mode=3&dl=0&size=2048x1536";
+    render (url);
     }
 
-function downloadImages(url) {
-    var imageData = GetURL(url,true);
-    var filename = getFilename(url);
+function render(url) {
+    var filename = downloadImages(url);
+    image = loadImage(filename);
     
-    var image = saveImageToHD(imageData, filename, "~/Desktop/test");
     var page = document.pages.item(0);
     var rect = page.rectangles.add();
     //rect.geometricBounds = [0, 100, 100, 200];
@@ -23,19 +26,8 @@ function downloadImages(url) {
     rect.move([100, 0]);
     }
 
-function getFilename(url) {
-      var fileName = url.split("/");
-      fileName = fileName[fileName.length - 1]; 
-      return fileName;
-    }
-
-function saveImageToHD(imageData, filename, path) { 
-    var imagePath = File(path + "/"+ filename);
-    if (imageData != null && imageData.body != null) {
-        imagePath.open("w");
-        imagePath.encoding = "BINARY";
-        imagePath.write(imageData.body);
-        imagePath.close();
-       }
-    return imagePath;
+function loadImage(filename) {
+    var image = new File(filename);
+    image.open("r");
+    return image;
     }
