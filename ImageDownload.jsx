@@ -1,66 +1,1 @@
-﻿//myScript = "alert('hello world!');";
-//myScript = "echo hello & echo.world";
-//app.doScript(myScript, ScriptLanguage.UNKNOWN);
-
-function downloadImages(url) {
-    var name = "batchfile.bat";
-
-    var directory = (new File($.fileName)).parent.parent;
-    directory = directory.fsName;
-    var filename = createWindowsFilename("images", url, directory);
-    
-    var batchFile = writeWindowsBatchCode(url, name, filename, directory);
-    batchFile.execute();
-    
-    while(batchFile.exists) {
-        $.sleep(1000);
-        $.writeln("waiting for image download\n");
-    }
-    $.writeln("download completed");
-    return filename;
-    }
-
-function writeWindowsBatchCode(url, name, filename, directory) {
-        batchFile = new File(directory + "\\" + name);
-        batchFile.open("w");
-        batchFile.writeln(
-        'start /wait "" "C:\\Users\\Martin\\Downloads\\curl.exe" -L -o ' +  filename  + ' --create-dirs ' + url + '\n' +
-        'DEL "%~f0"'
-        );
-        return batchFile;
-    }
-
-function createWindowsFilename(foldername, url, directory) {
-    filenameCounter = 0;
-    var filename = directory + '\\images\\' + filenameCounter + ".jpg";
-    filenameCounter++;
-    return filename
-    
-    }
-
-function getFilename(url) {
-      var fileName = url.split("/");
-      fileName = fileName[fileName.length - 1]; 
-      return fileName;
-    }
-
-// Or use a hard coded path to the file
-// var file = File("~/Desktop/hello world.txt");
-
-// Open the file for reading
-/*
-file.open("r");
-var result = file.execute();
-
-// busy wait
-while(file.exists) {
-    $.sleep(1000);
-    $.writeln("waiting for finish\n");
-    }
-$.writeln("finish");
-
-
-var val = $.getenv("download");
-
-
-$.writeln(result);*/
+﻿function downloadImages(url) {    var directory = (new File($.fileName)).parent.parent;    directory = directory.fsName;    directory = directory + '/images';    executeApplescript (url, directory);    return directory;    }function executeApplescript(url, directory) {    var myArgArray = ["arg1", "arg2"];    var myAppleScript = "display dialog(\"Erstes Argument: \" & item 1 of arguments & return & \"Zweites Argument: \" & item 2 of arguments)";       // recreateImageDir(directory);    var myAppleScript = 'do shell script "cd ' + directory + ' && rm -fr *"';    app.doScript(myAppleScript, ScriptLanguage.applescriptLanguage, myArgArray);        myAppleScript = 'do shell script "cd '+ directory + ' && curl -L -O -J ' + url +'"';    app.doScript(myAppleScript, ScriptLanguage.applescriptLanguage, myArgArray); //todo implement timeout here    }function createOSXFilename(foldername, url, directory) {    filenameCounter = 0;    var filename = directory + '/images/' + filenameCounter + ".jpg";    filenameCounter++;    return filename    }function getFilename(url) {      var fileName = url.split("/");      fileName = fileName[fileName.length - 1];       return fileName;    }function recreateImageDir(directory) {    try {        app.doScript('do shell script "rm -R ' + directory + '"', ScriptLanguage.applescriptLanguage);    }    catch(e) {}    try {        app.doScript('do shell script "mkdir ' + directory + '"', ScriptLanguage.applescriptLanguage);        app.doScript('do shell script "chmod 777 ' + directory +'"', ScriptLanguage.applescriptLanguage);    }    catch(e) {        alert("Cannot create temporary image directory\n Cause: " +e);        }    }
