@@ -527,60 +527,8 @@
            ],
            "images": [
                {
-                   "url": "http://example.org/main-article-image.jpg",
+                   "url": "https://www.dropbox.com/s/rsyy0mukdvbnf1c/image.jpg?dl=0",
                    "description": "main image of article"
-               },
-               {
-                   "url": "http://example.org/additional-image-1.jpg",
-                   "description": "additional image 1"
-               },
-               {
-                   "url": "http://example.org/additional-image-2.jpg",
-                   "description": "additional image 2"
-               },
-               {
-                   "url": "http://example.org/additional-image-3.jpg",
-                   "description": "additional image 3"
-               },
-               {
-                   "url": "http://example.org/color-sample-1.jpg",
-                   "description": "color sample 1"
-               },
-               {
-                   "url": "http://example.org/color-sample-2.jpg",
-                   "description": "color sample 2"
-               },
-               {
-                   "url": "http://example.org/color-sample-3.jpg",
-                   "description": "color sample 3"
-               },
-               {
-                   "url": "http://example.org/brand-logo.jpg",
-                   "description": "brand image"
-               },
-               {
-                   "url": "http://example.org/additional-logo-1.jpg",
-                   "description": "additional logo 1"
-               },
-               {
-                   "url": "http://example.org/additional-logo-2.jpg",
-                   "description": "additional logo 2"
-               },
-               {
-                   "url": "http://example.org/additional-logo-3.jpg",
-                   "description": "additional logo 3"
-               },
-               {
-                   "url": "http://example.org/certificate-1.jpg",
-                   "description": "certificate 1"
-               },
-               {
-                   "url": "http://example.org/certificate-2.jpg",
-                   "description": "certificate 2"
-               },
-               {
-                   "url": "http://example.org/certificate-3.jpg",
-                   "description": "certificate 3"
                }
            ],
            "merchantSpecificFiles": [
