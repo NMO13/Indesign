@@ -46,7 +46,7 @@ function renderMainImage(image, page) {
     
     var xOffset = (rect.geometricBounds[3] - rect.geometricBounds[1]) / 2;
     //rect.geometricBounds = [rect.geometricBounds[0], rect.geometricBounds[1] + xOffset, rect.geometricBounds[2], rect.geometricBounds[3] + xOffset];
-    rect.move([0, 0]);
+    rect.move([100, 0]);
     }
 
 function renderComplementaryImage(image, page) {
@@ -55,7 +55,7 @@ function renderComplementaryImage(image, page) {
     rect.fit (FitOptions.FRAME_TO_CONTENT);
     rect.fit (FitOptions.PROPORTIONALLY);
     rect.fit (FitOptions.CENTER_CONTENT);
-    rect.move([100, 0]);
+    rect.move([0, 0]);
     }
 
 function processDownloadedFile(directory) {
