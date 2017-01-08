@@ -46,7 +46,7 @@ function renderMainImage(image, page) {
     
     var xOffset = (rect.geometricBounds[3] - rect.geometricBounds[1]) / 2;
     //rect.geometricBounds = [rect.geometricBounds[0], rect.geometricBounds[1] + xOffset, rect.geometricBounds[2], rect.geometricBounds[3] + xOffset];
-    rect.move([100, 0]);
+    rect.move([0, 0]);
     }
 
 function renderComplementaryImage(image, page) {
@@ -72,18 +72,20 @@ function processDownloadedFile(directory) {
         if(extension == "zip") {
             unzip(file, directory);
             var image = findImage(directory);
-            if(image == null)
-                alert("Image was not found in zip");
+            if(image == null) {
+                alert('Image was not found in zip');
+                throw new Error('Image was not found in zip');
+                }
             return image;
            }           
-        else if(extension =='jpg' | extension == 'jpeg')
+        else if(extension =='jpg' || extension == 'jpeg' || extension == 'tif' || extension == 'psd' || extension =='eps')
         {
             file.open("r");
             return file;
             }
         }
-    alert("Unrecognized file type");
-    throw new Error("Unrecognized file type");
+    alert('Unrecognized file type: ' + extension);
+    throw new Error('Unrecognized file type');
     }
 
 function findImage(directory) {
