@@ -21,14 +21,14 @@ function renderImages(images, page) {
 
 function modifyImageUrl(url) {
     var parsedUrl = getParsedUrl(url);
-    if(parsedUrl.address == "www.dropbox.com") {
+    if(parsedUrl.address == 'www.dropbox.com') {
         }
-    else if(parsedUrl.address == "google") {
+    else if(parsedUrl.address == 'drive.google.com' || parsedUrl.address == 'docs.google.com') {
         }
-    else if(parsedUrl.address == "www.werbemittelhersteller.com") {
+    else if(parsedUrl.address == 'www.werbemittelhersteller.com') {
         }
     else
-        throw parsedUrl.address + " is invalid hoster";
+        throw parsedUrl.address + " is an invalid hoster";
         
     return url;
     }
