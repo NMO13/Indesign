@@ -46,7 +46,12 @@ function renderMainImage(image, page) {
     
     var xOffset = (rect.geometricBounds[3] - rect.geometricBounds[1]) / 2;
     //rect.geometricBounds = [rect.geometricBounds[0], rect.geometricBounds[1] + xOffset, rect.geometricBounds[2], rect.geometricBounds[3] + xOffset];
-    rect.move([100, 0]);
+    if(page.side == PageSideOptions.RIGHT_HAND && page.index != 0) {
+        rect.move([310, 0]);
+        }
+    else {
+        rect.move([100, 0]);
+        }
     }
 
 function renderComplementaryImage(image, page) {
