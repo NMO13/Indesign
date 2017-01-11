@@ -60,7 +60,12 @@ function renderComplementaryImage(image, page) {
     rect.fit (FitOptions.FRAME_TO_CONTENT);
     rect.fit (FitOptions.PROPORTIONALLY);
     rect.fit (FitOptions.CENTER_CONTENT);
-    rect.move([0, 0]);
+    if(page.side == PageSideOptions.RIGHT_HAND && page.index != 0) {
+        rect.move([210, 0]);
+        }
+    else {
+        rect.move([0, 0]);
+        }
     }
 
 function processDownloadedFile(directory) {
