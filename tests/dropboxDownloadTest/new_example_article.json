@@ -43,6 +43,31 @@
                        "name": "unbranded article scale 5",
                        "numberOfArticles": "ab 500",
                        "price": "6 cent"
+                   },
+                   {
+                       "name": "unbranded article scale 1",
+                       "numberOfArticles": "1 - 10",
+                       "price": "20 cent"
+                   },
+                   {
+                       "name": "unbranded article scale 2",
+                       "numberOfArticles": "11 - 100",
+                       "price": "15 cent"
+                   },
+                   {
+                       "name": "unbranded article scale 3",
+                       "numberOfArticles": "101 - 300",
+                       "price": "10 cent"
+                   },
+                   {
+                       "name": "unbranded article scale 4",
+                       "numberOfArticles": "300 - 500",
+                       "price": "8 cent"
+                   },
+                   {
+                       "name": "unbranded article scale 5",
+                       "numberOfArticles": "ab 500",
+                       "price": "6 cent"
                    }
                ],
                "suggestedPrice": "1 cent"

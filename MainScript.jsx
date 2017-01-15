@@ -1,1 +1,174 @@
-﻿#include "JsonProcessing.jsx"#include "DocumentRendering.jsx"#include "ImageRendering.jsx"// main code starts herefunction main(jsonDir){    setupDocument();    var color = document.colors.add();    color.properties = {        name: "color0",        model: ColorModel.PROCESS,        space: ColorSpace.CMYK,        colorValue: [14, 7, 6, 88]        };    var color = document.colors.add();    color.properties = {        name: "color1",        model: ColorModel.PROCESS,        space: ColorSpace.CMYK,        colorValue: [0, 0, 0, 0]        };    var jsons = parseAllJsonFiles(jsonDir);    sortByCategory(jsons);        var currentCategory = "";    for(var i = 0; i < jsons.length; i++) {        var category = jsons[i].doc.articleFormData.catalogData.category.name;        if(category != currentCategory) {            currentCategory = category;            createCategoryPage(category);            addPage();            }        fillTextFrame(jsons[i]);        if(i < jsons.length - 1)            addPage();    }    $.writeln("finished");    return document;}function setupDocument() {    var myDocument = app.documents.add();    var documentPreference = myDocument.documentPreferences;    documentPreference.pageSize = "A4";    documentPreference.facingPages = true;    documentPreference.intent = DocumentIntentOptions.PRINT_INTENT;        setRulerAndUnits();    setPageMargins();    setDocumentBleed(documentPreference);    setDocumentSlug(documentPreference);   // documentPreference.pagesPerDocument = 9; // just for testing    return myDocument;    }function addPage() {    var pageRef = document.pages.item(document.pages.length - 1);    document.pages.add(LocationOptions.AFTER, pageRef);    }function getLastPage() {    return document.pages.item(document.pages.length - 1);    }function setRulerAndUnits() {    //Set the measurement units and ruler origin.    document.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.MILLIMETERS;    document.viewPreferences.verticalMeasurementUnits = MeasurementUnits.MILLIMETERS;    document.viewPreferences.rulerOrigin = RulerOrigin.pageOrigin;    }function setPageMargins() {    //Get a reference to the first master spread.    var myMasterSpread = document.masterSpreads.item(0);    //Get a reference to the margin preferences of the first page in the master spread.    var myMarginPreferences = myMasterSpread.pages.item(0).marginPreferences;    //Now set up the page margins and columns.    myMarginPreferences.left = 0;    myMarginPreferences.top = 0;    myMarginPreferences.right = 0;    myMarginPreferences.bottom = 0;    myMarginPreferences.columnCount = 1;    myMarginPreferences.columnGutter = "4.233mm";    //Page margins and columns for the right-hand page.    var myMarginPreferences = myMasterSpread.pages.item(1).marginPreferences;    myMarginPreferences.left = 0;    myMarginPreferences.top = 0;    myMarginPreferences.right = 0;    myMarginPreferences.bottom = 0;    myMarginPreferences.columnCount = 1;    myMarginPreferences.columnGutter = "4.233mm";    }function setDocumentBleed(documentPreference) {    documentPreference.documentBleedUniformSize = false;    documentPreference.documentBleedBottomOffset = "3mm";    documentPreference.documentBleedInsideOrLeftOffset = "3mm";    documentPreference.documentBleedOutsideOrRightOffset = "3mm";    documentPreference.documentBleedTopOffset = "3mm";    }function setDocumentSlug(documentPreference) {    documentPreference.documentSlugUniformSize = false;    documentPreference.slugBottomOffset = "0mm";    documentPreference.slugInsideOrLeftOffset = "0mm";    documentPreference.slugRightOrOutsideOffset = "0mm";    documentPreference.slugTopOffset = "0mm";    }function insertType(page) {    var parentFrame = page.textFrames.add();    parentFrame.geometricBounds = [6.899, 7.007, 1, 100];    var color = document.colors.itemByName("color0");    parentFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;    parentFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;        parentFrame.fillColor = color;    parentFrame.fillTint = 23;    return parentFrame;    }function fillTextFrame(json) {    var page = getLastPage();    var parentFrame = insertType(page);       var textFrame = parentFrame.insertionPoints[-1].textFrames.add();  //  var textFrame = page.textFrames.add();    textFrame.geometricBounds = [10, 10, 100, 100];    textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;    textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;     //   textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY; //   textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;        renderArticleNumber(textFrame, json.doc.articleFormData.catalogData.articleNrInCatalog);    renderName(textFrame, json.doc.articleFormData.articleData.name);    renderDescription(textFrame, json.doc.articleFormData.articleData.description);    renderSize(textFrame, json.doc.articleFormData.articleData.size);    renderColorAndShape(textFrame, json.doc.articleFormData.articleData.colorAndShape);    renderSuggestedPrice(textFrame, json.doc.articleFormData.unbrandedArticlePrice.suggestedPrice);    renderUnbrandedArticlePricesHeader(textFrame)    var prevFrame = renderUnbrandedArticlePrices(textFrame, json.doc.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);    prevFrame = renderPosition(textFrame, prevFrame, json.doc.articleFormData.brandings[0].position);    var brandingsFrame = renderBrandingsHeader(textFrame, prevFrame, page);    renderBrandings(brandingsFrame, json.doc.articleFormData.brandings);    renderMinimumOrderQuantities(brandingsFrame, json.doc.articleFormData.minimumOrderQuantities);    renderImages(json.doc.articleFormData.images, page);    //todo fit parent frame    }function sortByCategory(jsons) {    for(var i = 1; i < jsons.length; i++) {        var j = i;        var pos0 = jsons[j-1].doc.articleFormData.catalogData.positionInCatalog;        var pos1 = jsons[j].doc.articleFormData.catalogData.positionInCatalog;        while(j > 0 && pos0 > pos1) {            var temp = jsons[j-1];            jsons[j-1] = jsons[j];            jsons[j] = temp;            j = j - 1;            }        }    }function createCategoryPage(category) {    var page = getLastPage();    var frame = page.textFrames.add();    frame.geometricBounds = [10, 10, 280, 200];    frame.contents = category;    frame.textFramePreferences.verticalJustification = VerticalJustification.CENTER_ALIGN;      var text = frame.texts.item(0);      text.appliedFont = app.fonts.item("Helvetica Neue LT Pro	57 Condensed");      //text.fontStyle = "Bold";      text.pointSize = 60;      //text.fillColor = white;      text.justification = Justification.centerAlign;      text.alignToBaseline = false;      //var font0 = new FontInfo(40, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));    //setFontAndText("oj", font0, frame);    }
+﻿#include "JsonProcessing.jsx"
+#include "DocumentRendering.jsx"
+#include "ImageRendering.jsx"
+// main code starts here
+
+function main(jsonDir)
+{
+    setupDocument();
+
+    var color = document.colors.add();
+    color.properties = {
+        name: "color0",
+        model: ColorModel.PROCESS,
+        space: ColorSpace.CMYK,
+        colorValue: [14, 7, 6, 88]
+        };
+
+    var color = document.colors.add();
+    color.properties = {
+        name: "color1",
+        model: ColorModel.PROCESS,
+        space: ColorSpace.CMYK,
+        colorValue: [0, 0, 0, 0]
+        };
+
+    var jsons = parseAllJsonFiles(jsonDir);
+    sortByCategory(jsons);
+    
+    var currentCategory = "";
+    for(var i = 0; i < jsons.length; i++) {
+        var category = jsons[i].doc.articleFormData.catalogData.category.name;
+        if(category != currentCategory) {
+            currentCategory = category;
+            addPage();
+            }
+        fillTextFrame(jsons[i]);
+        if(i < jsons.length - 1)
+            addPage();
+    }
+
+    $.writeln("finished");
+    return document;
+}
+
+function setupDocument() {
+    var myDocument = app.documents.add();
+    var documentPreference = myDocument.documentPreferences;
+    documentPreference.pageSize = "A4";
+    documentPreference.facingPages = true;
+    documentPreference.intent = DocumentIntentOptions.PRINT_INTENT;
+    
+    setRulerAndUnits();
+    setPageMargins();
+    setDocumentBleed(documentPreference);
+    setDocumentSlug(documentPreference);
+   // documentPreference.pagesPerDocument = 9; // just for testing
+    return myDocument;
+    }
+
+function addPage() {
+    var pageRef = document.pages.item(document.pages.length - 1);
+    document.pages.add(LocationOptions.AFTER, pageRef);
+    }
+
+function getLastPage() {
+    return document.pages.item(document.pages.length - 1);
+    }
+
+function setRulerAndUnits() {
+    //Set the measurement units and ruler origin.
+    document.viewPreferences.horizontalMeasurementUnits = MeasurementUnits.MILLIMETERS;
+    document.viewPreferences.verticalMeasurementUnits = MeasurementUnits.MILLIMETERS;
+    document.viewPreferences.rulerOrigin = RulerOrigin.pageOrigin;
+    }
+
+function setPageMargins() {
+    //Get a reference to the first master spread.
+    var myMasterSpread = document.masterSpreads.item(0);
+    //Get a reference to the margin preferences of the first page in the master spread.
+    var myMarginPreferences = myMasterSpread.pages.item(0).marginPreferences;
+    //Now set up the page margins and columns.
+    myMarginPreferences.left = 0;
+    myMarginPreferences.top = 0;
+    myMarginPreferences.right = 0;
+    myMarginPreferences.bottom = 0;
+    myMarginPreferences.columnCount = 1;
+    myMarginPreferences.columnGutter = "4.233mm";
+    //Page margins and columns for the right-hand page.
+    var myMarginPreferences = myMasterSpread.pages.item(1).marginPreferences;
+    myMarginPreferences.left = 0;
+    myMarginPreferences.top = 0;
+    myMarginPreferences.right = 0;
+    myMarginPreferences.bottom = 0;
+    myMarginPreferences.columnCount = 1;
+    myMarginPreferences.columnGutter = "4.233mm";
+    }
+
+function setDocumentBleed(documentPreference) {
+    documentPreference.documentBleedUniformSize = false;
+    documentPreference.documentBleedBottomOffset = "3mm";
+    documentPreference.documentBleedInsideOrLeftOffset = "3mm";
+    documentPreference.documentBleedOutsideOrRightOffset = "3mm";
+    documentPreference.documentBleedTopOffset = "3mm";
+    }
+
+function setDocumentSlug(documentPreference) {
+    documentPreference.documentSlugUniformSize = false;
+    documentPreference.slugBottomOffset = "0mm";
+    documentPreference.slugInsideOrLeftOffset = "0mm";
+    documentPreference.slugRightOrOutsideOffset = "0mm";
+    documentPreference.slugTopOffset = "0mm";
+    }
+
+function createGreyBox(page) {
+    var parentFrame = page.textFrames.add();
+    //parentFrame.geometricBounds = [6.899, 7.007, 1, 100];
+    var color = document.colors.itemByName("color0");
+    //parentFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    //parentFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
+
+    
+    parentFrame.fillColor = color;
+    parentFrame.fillTint = 23;
+    return parentFrame;
+    }
+
+function fillTextFrame(json) {
+    var page = getLastPage();
+    var greyParentBox = createGreyBox(page);
+    //var parentFrame = insertGreyBox(page);
+   
+    var textFrame = page.textFrames.add();
+    textFrame.geometricBounds = [10, 10, 100, 100];
+    //textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
+    //textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
+    
+    renderArticleNumber(textFrame, json.doc.articleFormData.catalogData.articleNrInCatalog);
+    renderName(textFrame, json.doc.articleFormData.articleData.name);
+    renderDescription(textFrame, json.doc.articleFormData.articleData.description);
+    renderSize(textFrame, json.doc.articleFormData.articleData.size);
+    renderColorAndShape(textFrame, json.doc.articleFormData.articleData.colorAndShape);
+    renderSuggestedPrice(textFrame, json.doc.articleFormData.unbrandedArticlePrice.suggestedPrice);
+    renderUnbrandedArticlePricesHeader(textFrame)
+    renderUnbrandedArticlePrices(textFrame, json.doc.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);
+    renderPosition(textFrame, json.doc.articleFormData.brandings[0].position);
+    renderBrandingsHeader(textFrame, page);
+    renderBrandings(textFrame, json.doc.articleFormData.brandings);
+    renderMinimumOrderQuantities(textFrame, json.doc.articleFormData.minimumOrderQuantities);
+    textFrame.fit(FitOptions.FRAME_TO_CONTENT); 
+    
+    fitBoxes(textFrame, greyParentBox);
+    renderImages(json.doc.articleFormData.images, page, greyParentBox);
+    }
+
+function fitBoxes(textFrame, greyParentBox) {
+    var padding = 5;
+    textFrame.move([20 + padding, 20 + padding]);
+    greyParentBox.geometricBounds = [20, 20, textFrame.geometricBounds[2] + padding, textFrame.geometricBounds[3] + padding];
+    
+    }
+
+function sortByCategory(jsons) {
+    for(var i = 1; i < jsons.length; i++) {
+        var j = i;
+        var pos0 = jsons[j-1].doc.articleFormData.catalogData.positionInCatalog;
+        var pos1 = jsons[j].doc.articleFormData.catalogData.positionInCatalog;
+        while(j > 0 && pos0 > pos1) {
+            var temp = jsons[j-1];
+            jsons[j-1] = jsons[j];
+            jsons[j] = temp;
+            j = j - 1;
+            }
+        }
+    }
