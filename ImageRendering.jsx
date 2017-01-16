@@ -85,8 +85,9 @@ function renderComplementaryImage(image, page, imageCounter, posX, posY) {
 
 function createImageCounterFrame(page, posX, posY, imageCounter) {
     var tf = page.textFrames.add();
-    tf.move([posX + 5, posY + 5]);
-    tf.contents = "> " + imageCounter;
+    tf.geometricBounds = [posY + 5, posX + 5, posY + 30, posX + 30];
+    var font0 = new FontInfo(10, "The Sans Bold-	Bold Plain", document.colors.itemByName("Black"));
+    setFontAndText("> " + imageCounter + ".0", font0, tf, 0);
     tf.fit(FitOptions.FRAME_TO_CONTENT); 
     }
 

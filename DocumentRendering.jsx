@@ -3,13 +3,13 @@
 
 function renderDescription(textFrame, description) {
     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndText(description, font, textFrame);
-    newLine(textFrame);
+    setFontAndText(description, font, textFrame, 8);
+    setFontAndText("\n", font, textFrame, 8);
     }
 
 function renderName(textFrame, name) {
     var font = new FontInfo(11, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
-    setFontAndText(name, font, textFrame);
+    setFontAndText(name, font, textFrame, 14);
     newLine(textFrame);
     }
 
@@ -17,68 +17,70 @@ function renderSize(textFrame, size) {
     newLine(textFrame);
     var text = "Maße/Größe(n) ";    
     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndText(text + size, font, textFrame);
+    setFontAndText(text + size, font, textFrame, 8);
     newLine(textFrame);
     }
 
 function renderColorAndShape(textFrame, cas) {
-    newLine(textFrame);
     var text = "Farben: ";
     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndText(text + cas, font, textFrame);
+    setFontAndText(text + cas, font, textFrame, 8);
     newLine(textFrame);
     }
 
 function renderSuggestedPrice(textFrame, suggestedPrice) {
     var text = "Richtpreis: ";
     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndText(text + suggestedPrice, font, textFrame);
+    setFontAndText(text + suggestedPrice, font, textFrame, 8);
     newLine(textFrame);
     }
 
 function renderArticleNumber(textFrame, articleNumber) {
-    var font0 = new FontInfo(10, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Paper"));
-    setFontAndText("> 1.0", font0, textFrame);
+    var font0 = new FontInfo(10, "The Sans Bold-	Bold Plain", document.colors.itemByName("Paper"));
+    setFontAndText("> 1.0", font0, textFrame, 15.21);
     
     var font1 = new FontInfo(10, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
-    setFontAndText("    ", font1, textFrame);
+    setFontAndText("    ", font1, textFrame, 15.21);
     
     var font2 = new FontInfo(7.5, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
-    setFontAndText(articleNumber, font2, textFrame);
+    setFontAndText(articleNumber, font2, textFrame, 14);
     
     newLine(textFrame);
     }
 
 function renderUnbrandedArticlePricesHeader(textFrame) {
-    newLine(textFrame);
+    var font2 = new FontInfo(6, "Helvetica Neue LT Pro	47 Light Condensed", document.colors.itemByName("Black"));
+    setFontAndText("\n", font2, textFrame, 7);
+    
     var text = "Staffel & Stück-Preise:";
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
-    setFontAndText(text, font0, textFrame);
+    setFontAndText(text, font0, textFrame, 7);
     }
 
 function renderUnbrandedArticlePrices(textFrame, unbrandedPrices, page) {
     newLine(textFrame);
-    return createUnbrandedArticleTable(textFrame, unbrandedPrices, page);
+    createUnbrandedArticleTable(textFrame, unbrandedPrices, page);
     }
 
 function renderPosition(textFrame, position) {
-    var text = "Veredelungsfläche: ";
-    var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
+    var font0 = new FontInfo(6, "Helvetica Neue LT Pro	47 Light Condensed", document.colors.itemByName("Black"));
+    setFontAndTextParentStory("\n", font0, textFrame, 7);
+    setFontAndTextParentStory("\n", font0, textFrame, 7);
     
-    var firstInsertionPoint = textFrame.parentStory.insertionPoints[-1].index;
-    textFrame.parentStory.insertionPoints[-1].contents = "\n";
-    setFontAndTextParentStory(text + position, font0, textFrame);
+    var text = "Veredelungsfläche: ";
+    font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
+    setFontAndTextParentStory(text + position, font0, textFrame, 7);
     }
 
 function renderBrandingsHeader(textFrame, page) {
-     var text = "Veredelung pro Stück";     
+     var text = "Veredelung pro Stück:";     
      var font0 = new FontInfo(6, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
      textFrame.parentStory.insertionPoints[-1].contents = "\n";
-     setFontAndTextParentStory(text, font0, textFrame);
+     setFontAndTextParentStory(text, font0, textFrame, 7);
     }
 
 function renderBrandings(textFrame, brandings) {
-     textFrame.parentStory.insertionPoints[-1].contents = "\n";
+     //textFrame.parentStory.insertionPoints[-1].contents = "\n";
      var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
      
      for(var i = 0; i < brandings.length; i++) {
@@ -92,25 +94,25 @@ function renderBrandings(textFrame, brandings) {
 function renderBrandingEntry(branding, textFrame) {
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
     textFrame.parentStory.insertionPoints[-1].contents = "\n";
-    setFontAndTextParentStory(mapBrandingName(branding.name) + ": ", font0, textFrame);
+    setFontAndTextParentStory(mapBrandingName(branding.name) + ": ", font0, textFrame, 7);
     for(var i = 0; i < branding.scales.length; i++) {
         var scale = branding.scales[i];
-        setFontAndTextParentStory(scale.numberOfArticles, font0, textFrame);
-        setFontAndTextParentStory(" - " + scale.price, font0, textFrame);
-        setFontAndTextParentStory(" / ", font0, textFrame);
+        setFontAndTextParentStory(scale.numberOfArticles, font0, textFrame, 7);
+        setFontAndTextParentStory(" - " + scale.price, font0, textFrame, 7);
+        setFontAndTextParentStory(" / ", font0, textFrame, 7);
         }
     }
 
 function renderInitialCosts(initialCosts, textFrame) {
     textFrame.parentStory.insertionPoints[-1].contents = "\n";
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndTextParentStory("Initiale Kosten: " + initialCosts, font0, textFrame);
+    setFontAndTextParentStory("Initiale Kosten: " + initialCosts, font0, textFrame, 7);
     }
 
 function renderFilmCosts(filmCosts, textFrame) {
     textFrame.parentStory.insertionPoints[-1].contents = "\n";
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndTextParentStory("Beschichtungskosten: " + filmCosts, font0, textFrame);
+    setFontAndTextParentStory("Beschichtungskosten: " + filmCosts, font0, textFrame, 7);
     }
 
 function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
@@ -118,19 +120,19 @@ function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
     
     if(minimumOrderQuantities.length > 0) {
         textFrame.parentStory.insertionPoints[-1].contents = "\n";
-        setFontAndTextParentStory("Mindestbestellmenge: ", font0, textFrame);
+        setFontAndTextParentStory("Mindestbestellmenge: ", font0, textFrame, 7);
         }
     for(var i = 0; i < minimumOrderQuantities.length; i++) {
         var quantity = minimumOrderQuantities[i];
-        setFontAndTextParentStory(quantity.condition + " ", font0, textFrame);
-        setFontAndTextParentStory(quantity.quantity, font0, textFrame);
-        setFontAndTextParentStory(" / ", font0, textFrame);
+        setFontAndTextParentStory(quantity.condition + " ", font0, textFrame, 7);
+        setFontAndTextParentStory(quantity.quantity, font0, textFrame, 7);
+        setFontAndTextParentStory(" / ", font0, textFrame, 7);
         }
         textFrame.characters[-1].remove();
         textFrame.characters[-1] .remove();
     }
 
-function setFontAndTextParentStory(text, fontInfo, textFrame) {            
+function setFontAndTextParentStory(text, fontInfo, textFrame, leadingVal) {            
       try {
             var firstInsertionPoint = textFrame.insertionPoints[-1].index;
             
@@ -138,6 +140,8 @@ function setFontAndTextParentStory(text, fontInfo, textFrame) {
             
             var textRange = textFrame.characters.itemByRange(textFrame.insertionPoints[firstInsertionPoint],
                         textFrame.insertionPoints[-1]);
+            textRange.tracking = 30;
+            textRange.leading = leadingVal;
 
             textRange.fillColor = fontInfo.fontColor;
             textRange.appliedFont = app.fonts.itemByName(fontInfo.fontName);
@@ -148,7 +152,7 @@ function setFontAndTextParentStory(text, fontInfo, textFrame) {
         }
     }
 
-function setFontAndText(text, fontInfo, textFrame) {
+function setFontAndText(text, fontInfo, textFrame, leadingVal) {
     try {
         var firstInsertionPoint = textFrame.insertionPoints[-1].index;
         
@@ -156,6 +160,8 @@ function setFontAndText(text, fontInfo, textFrame) {
         
         var textRange = textFrame.characters.itemByRange(textFrame.insertionPoints[firstInsertionPoint],
                     textFrame.insertionPoints[-1]);
+        textRange.tracking = 30;
+        textRange.leading = leadingVal;
 
         textRange.fillColor = fontInfo.fontColor;
         textRange.appliedFont = app.fonts.itemByName(fontInfo.fontName);
@@ -182,9 +188,6 @@ function FontInfo(fontSize, fontName, fontColor) {
     }
 
 function createUnbrandedArticleTable(textFrame, unbrandedPrices, page) {
-  /*  var tf2 = textFrame.insertionPoints[-1].textFrames.add();
-    tf2.geometricBounds = [tf2.geometricBounds[0], tf2.geometricBounds[1], tf2.geometricBounds[2], textFrame.geometricBounds[3]];
-    tf2.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;*/
     createCell(textFrame, unbrandedPrices);
     }
 
@@ -221,20 +224,21 @@ function createCell(textFrame, unbrandedPrices) {
         // Let's fit the frame to the table:  
         frameWithTable.fit(FitOptions.FRAME_TO_CONTENT);  
           
+        var firstInsertionPoint = textFrame.insertionPoints[-1].index;
         // Duplicate and anchor the duplicates to the selected text frame:  
         for(var i=0;i<unbrandedPrices.length;i++)  
         {  
             var dup = frameWithTable.duplicate();  
-          // textFrame.insertionPoints[-1].textFrames.add();
+           //textFrame.insertionPoints[-1].textFrames.add();
             dup.anchoredObjectSettings.insertAnchoredObject  
             (  
-                textFrame.insertionPoints[-1] ,  
+                textFrame.parentStory.insertionPoints[-1] ,  
                 AnchorPosition.INLINE_POSITION  
             );
             
             var cell = dup.tables[0].rows[0].cells[0];
             var font = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-            setFontAndText(unbrandedPrices[i].numberOfArticles, font, cell);
+            setFontAndText(unbrandedPrices[i].numberOfArticles, font, cell, 8.5);
             centerInFrame(cell);
             
             cell.topInset = 0;
@@ -244,7 +248,7 @@ function createCell(textFrame, unbrandedPrices) {
             
             cell = dup.tables[0].rows[1].cells[0];
             font = new FontInfo(6, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
-            setFontAndText(unbrandedPrices[i].price, font, cell);
+            setFontAndText(unbrandedPrices[i].price, font, cell, 8.5);
             centerInFrame(cell);
             
             cell.topInset = 0;
@@ -256,9 +260,12 @@ function createCell(textFrame, unbrandedPrices) {
             // Maybe we need a separator character between the frames
             textFrame.parentStory.insertionPoints[-1].contents = "  ";  
         }
+        var textRange = textFrame.characters.itemByRange(textFrame.insertionPoints[firstInsertionPoint],
+                    textFrame.insertionPoints[-1]);
+        textRange.leading = 25;
           
         // Remove the frame we built on the spread:  
-        frameWithTable.remove();        
+        frameWithTable.remove(); 
     }
 
 function centerInFrame(textFrame) {
