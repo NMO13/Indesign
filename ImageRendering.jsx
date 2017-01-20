@@ -1,7 +1,7 @@
 ﻿#include "ImageDownload.jsx"
 function renderImages(images, page, greyBox) {
-    var posX, posY;
-    var largestY = 0;
+    var posX, posY = 0;
+    var largestY = 20;
     for(var i = 0; i < images.length; i++) {
         var url = images[i].url;
         url = modifyImageUrl(url);
@@ -10,22 +10,16 @@ function renderImages(images, page, greyBox) {
         if(i == 0) {
             renderMainImage(image, page, greyBox, i + 1);
             }
-        if(i == 1) {
-            addPage();
-            page = getLastPage();
-            posX = 0;
-            posY = 20;
-            }
-        if(i > 0) {
-            if(i % 4 == 0) {
+        else {
+            if(i % 3 == 1) {
                 posX = 0;
-                posY = largestY;
+                posY += largestY;
                 }
             var prevBounds = renderComplementaryImage(image, page, i + 1, posX, posY);
-            posX += prevBounds[0];
             if(prevBounds[1] > largestY) {
                 largestY = prevBounds[1];
                 }
+            posX = prevBounds[0];
             }
         }
     }
@@ -72,20 +66,32 @@ function renderComplementaryImage(image, page, imageCounter, posX, posY) {
     rect.fit (FitOptions.FRAME_TO_CONTENT);
     rect.fit (FitOptions.PROPORTIONALLY);
     rect.fit (FitOptions.CENTER_CONTENT);
-    if(page.side == PageSideOptions.RIGHT_HAND && page.index != 0) {
-        rect.move([posX + 210, posY]);
+    rect.strokeWeight = 0;
+    if(page.side == PageSideOptions.LEFT_HAND) {
+        posX -= rect.geometricBounds[3] - rect.geometricBounds[1];
         createImageCounterFrame(page, posX, posY, imageCounter);
+        rect.move([posX, posY]);
         }
     else {
-        rect.move([posX, posY]);
-        createImageCounterFrame(page, posX, posY, imageCounter);
+        var offset;
+        if(page.index == 0)
+            offset = 210;
+        else
+            offset = 420;
+        rect.move([posX + offset, posY]);
+        
+        if(page.index > 0) {
+            offset = 210;
+            }
+        createImageCounterFrame(page, posX + offset, posY, imageCounter);
+        posX += rect.geometricBounds[3] - rect.geometricBounds[1];
         }
-    return [rect.geometricBounds[3] - rect.geometricBounds[1], rect.geometricBounds[2] - rect.geometricBounds[0]];
+    return [posX, rect.geometricBounds[2] - rect.geometricBounds[0]];
     }
 
 function createImageCounterFrame(page, posX, posY, imageCounter) {
     var tf = page.textFrames.add();
-    tf.geometricBounds = [posY + 5, posX + 5, posY + 30, posX + 30];
+    tf.geometricBounds = [posY, posX + 1, posY + 30, posX + 30];
     var font0 = new FontInfo(10, "The Sans Bold-	Bold Plain", document.colors.itemByName("Black"));
     setFontAndText("> " + imageCounter + ".0", font0, tf, 0);
     tf.fit(FitOptions.FRAME_TO_CONTENT); 

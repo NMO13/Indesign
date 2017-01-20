@@ -28,11 +28,6 @@ function main(jsonDir)
     
     var currentCategory = "";
     for(var i = 0; i < jsons.length; i++) {
-        var category = jsons[i].doc.articleFormData.catalogData.category.name;
-        if(category != currentCategory) {
-            currentCategory = category;
-            addPage();
-            }
         fillTextFrame(jsons[i]);
         if(i < jsons.length - 1)
             addPage();
@@ -53,7 +48,6 @@ function setupDocument() {
     setPageMargins();
     setDocumentBleed(documentPreference);
     setDocumentSlug(documentPreference);
-   // documentPreference.pagesPerDocument = 9; // just for testing
     return myDocument;
     }
 
@@ -113,10 +107,7 @@ function setDocumentSlug(documentPreference) {
 
 function createGreyBox(page) {
     var parentFrame = page.textFrames.add();
-    //parentFrame.geometricBounds = [6.899, 7.007, 1, 100];
     var color = document.colors.itemByName("color0");
-    //parentFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
-    //parentFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
 
     
     parentFrame.fillColor = color;
@@ -127,12 +118,9 @@ function createGreyBox(page) {
 function fillTextFrame(json) {
     var page = getLastPage();
     var greyParentBox = createGreyBox(page);
-    //var parentFrame = insertGreyBox(page);
    
     var textFrame = page.textFrames.add();
-    textFrame.geometricBounds = [10, 10, 100, 100];
-    //textFrame.textFramePreferences.autoSizingType = AutoSizingTypeEnum.HEIGHT_ONLY;
-    //textFrame.textFramePreferences.autoSizingReferencePoint = AutoSizingReferenceEnum.TOP_LEFT_POINT;
+    textFrame.geometricBounds = [10, 10, 250, 100];
     
     renderArticleNumber(textFrame, json.doc.articleFormData.catalogData.articleNrInCatalog);
     renderName(textFrame, json.doc.articleFormData.articleData.name);
@@ -153,7 +141,7 @@ function fillTextFrame(json) {
     }
 
 function fitBoxes(textFrame, greyParentBox) {
-    var padding = 5;
+    var padding = 3;
     textFrame.move([20 + padding, 20 + padding]);
     greyParentBox.geometricBounds = [20, 20, textFrame.geometricBounds[2] + padding, textFrame.geometricBounds[3] + padding];
     

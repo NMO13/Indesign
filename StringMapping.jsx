@@ -31,7 +31,7 @@ function buildPrintString(number) {
     }
 
 function buildAdditionalColorBrandingString() {
-    return "Zusätliche Farbkosten";
+    return "Zusätzliche Farbkosten";
     }
 
 function buildDigitalPrintString(number) {

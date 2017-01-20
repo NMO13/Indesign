@@ -80,7 +80,6 @@ function renderBrandingsHeader(textFrame, page) {
     }
 
 function renderBrandings(textFrame, brandings) {
-     //textFrame.parentStory.insertionPoints[-1].contents = "\n";
      var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
      
      for(var i = 0; i < brandings.length; i++) {
@@ -98,7 +97,7 @@ function renderBrandingEntry(branding, textFrame) {
     for(var i = 0; i < branding.scales.length; i++) {
         var scale = branding.scales[i];
         setFontAndTextParentStory(scale.numberOfArticles, font0, textFrame, 7);
-        setFontAndTextParentStory(" - " + scale.price, font0, textFrame, 7);
+        setFontAndTextParentStory(" – " + scale.price, font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
         }
     }
@@ -209,7 +208,7 @@ function createCell(textFrame, unbrandedPrices) {
        // table.rows.everyItem().autoGrow = false;
         table.bodyRowCount = 2;
         table.columnCount = 1;
-        table.width = 12;
+        table.width = 13;
         table.height = 7;
         table.rows.everyItem().bottomEdgeStrokeColor = "Paper";
         table.rows.everyItem().topEdgeStrokeColor = "Paper";

@@ -10,7 +10,7 @@ catch(e) {
 
 
 function executeTests() {
-   // dropboxDownloadTest();
+    //dropboxDownloadTest();
     
     //werbemittelherstellerTest();
     
@@ -20,7 +20,7 @@ function executeTests() {
 
   //  multipleFileFormatsTest(); 
 
-   // sortByPositionTest(); 
+  // sortByPositionTest(); 
 
   // addCategoryTest();
 
