@@ -1,1 +1,3 @@
-﻿#include "MainScript.jsx"main('/Users/admin/Desktop/Indesign/tests/test1');
+﻿#include "MainScript.jsx"
+
+main('/Users/admin/Desktop/Indesign/tests/additionalFilehosterTest');

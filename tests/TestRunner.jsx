@@ -24,7 +24,9 @@ function executeTests() {
 
   // addCategoryTest();
 
-    demoTest();
+  //  demoTest();
+  
+  additionalFilehosterTest();
 }
 
 function testDocument(document, imageCount) {
@@ -91,4 +93,8 @@ function addCategoryTest() {
 
 function demoTest() {
     test('/Users/admin/Desktop/Indesign/tests/demoTest', 3, 6);
+    }
+
+function additionalFilehosterTest() {
+    test('/Users/admin/Desktop/Indesign/tests/additionalFilehosterTest', 3, 6);
     }

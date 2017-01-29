@@ -7,6 +7,7 @@ function renderImages(images, page, greyBox) {
         url = modifyImageUrl(url);
         var directory = downloadImages(url);
         var image = processDownloadedFile(directory);
+        var siez = image.length;
         if(i == 0) {
             renderMainImage(image, page, greyBox, i + 1);
             }
@@ -26,14 +27,9 @@ function renderImages(images, page, greyBox) {
 
 function modifyImageUrl(url) {
     var parsedUrl = getParsedUrl(url);
-    if(parsedUrl.address == 'www.dropbox.com') {
+    if(parsedUrl.address == 'www.zertuscloud.com') {
+        url = url + '/download';
         }
-    else if(parsedUrl.address == 'drive.google.com' || parsedUrl.address == 'docs.google.com') {
-        }
-    else if(parsedUrl.address == 'www.werbemittelhersteller.com') {
-        }
-    else
-        throw parsedUrl.address + " is an invalid hoster";
         
     return url;
     }
