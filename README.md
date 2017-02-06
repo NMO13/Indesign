@@ -8,7 +8,7 @@ Open the scripts panel in InDesign (Window > Automation > Scripts in CS3 and CS4
 Any script inside the Scripts folder will show up immediately in InDesign. No need to restart the program.
 
 Open the "CallMain.jsx" file. The main function has two parameters which need to be adjusted:
-- the folder which contains the json files
-- a directory where the downloaded images will be stored temporarily
+- The absolute folder path which contains the json files.
+- The absolute folder path where the downloaded images will be stored temporarily. A folder called "image" has to be created, where this path points to. For example, if the path is "Users/admin/desktop", then you have to create the "image" folder at "Users/admin/desktop".
 
 To run the script, click on "CallMain.jsx" in the scripts panel. Indesign should immediately start to create a new document and execute the script.
