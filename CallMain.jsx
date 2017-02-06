@@ -1,3 +1,3 @@
 ﻿#include "MainScript.jsx"
 
-main('/Users/admin/Desktop/Indesign/tests/multipleFileFormatsTest', '/Users/admin/Desktop');
+main('/Users/admin/Desktop/Indesign/tests/dropboxDownloadTest', '/Users/admin/Desktop');
