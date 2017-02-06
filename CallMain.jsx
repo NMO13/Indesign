@@ -1,3 +1,3 @@
 ﻿#include "MainScript.jsx"
 
-main('/Users/admin/Desktop/Indesign/tests/additionalFilehosterTest');
+main('/Users/admin/Desktop/Indesign/tests/multipleFileFormatsTest', '/Users/admin/Desktop');

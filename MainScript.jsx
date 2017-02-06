@@ -3,8 +3,9 @@
 #include "ImageRendering.jsx"
 // main code starts here
 
-function main(jsonDir)
+function main(jsonDir, tempImageDir)
 {
+    TempImageDir = tempImageDir
     setupDocument();
 
     var color = document.colors.add();

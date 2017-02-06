@@ -7,7 +7,6 @@ function renderImages(images, page, greyBox) {
         url = modifyImageUrl(url);
         var directory = downloadImages(url);
         var image = processDownloadedFile(directory);
-        var siez = image.length;
         if(i == 0) {
             renderMainImage(image, page, greyBox, i + 1);
             }
@@ -39,13 +38,9 @@ function getParsedUrl(url) {
     }
 
 function renderMainImage(image, page, greyBox, imageCounter) {
-    var rect = page.rectangles.add();
-    rect.place(image);
-    rect.fit (FitOptions.FRAME_TO_CONTENT);
-    rect.fit (FitOptions.PROPORTIONALLY);
-    rect.fit (FitOptions.CENTER_CONTENT);
-    rect.strokeWeight = 0;
-    
+    var rect = placeImageInRect(image, page);
+    if(rect == null)
+        return;
     if(page.side == PageSideOptions.RIGHT_HAND && page.index != 0) {        
         rect.move([greyBox.geometricBounds[3] + 210, greyBox.geometricBounds[0]]);
         createImageCounterFrame(page, greyBox.geometricBounds[3], greyBox.geometricBounds[0], imageCounter);
@@ -57,12 +52,10 @@ function renderMainImage(image, page, greyBox, imageCounter) {
     }
 
 function renderComplementaryImage(image, page, imageCounter, posX, posY) {
-    var rect = page.rectangles.add();
-    rect.place(image);
-    rect.fit (FitOptions.FRAME_TO_CONTENT);
-    rect.fit (FitOptions.PROPORTIONALLY);
-    rect.fit (FitOptions.CENTER_CONTENT);
-    rect.strokeWeight = 0;
+    var rect = placeImageInRect(image, page);
+    if(rect == null) {
+        return [posX, posY];
+        }
     if(page.side == PageSideOptions.LEFT_HAND) {
         posX -= rect.geometricBounds[3] - rect.geometricBounds[1];
         createImageCounterFrame(page, posX, posY, imageCounter);
@@ -83,6 +76,21 @@ function renderComplementaryImage(image, page, imageCounter, posX, posY) {
         posX += rect.geometricBounds[3] - rect.geometricBounds[1];
         }
     return [posX, rect.geometricBounds[2] - rect.geometricBounds[0]];
+    }
+
+function placeImageInRect(image, page) {
+    var rect = page.rectangles.add();
+    try {
+        rect.place(image);
+        rect.fit (FitOptions.FRAME_TO_CONTENT);
+        rect.fit (FitOptions.PROPORTIONALLY);
+        rect.fit (FitOptions.CENTER_CONTENT);
+        rect.strokeWeight = 0;
+    }
+    catch(e) {
+        return null;
+        }
+    return rect;
     }
 
 function createImageCounterFrame(page, posX, posY, imageCounter) {
