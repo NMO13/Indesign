@@ -5,6 +5,8 @@
 
 function main(jsonDir, tempImageDir)
 {
+    // todo clear json dir
+    // todo download jsons
     TempImageDir = tempImageDir
     setupDocument();
 
@@ -123,22 +125,22 @@ function fillTextFrame(json) {
     var textFrame = page.textFrames.add();
     textFrame.geometricBounds = [10, 10, 250, 100];
     
-    renderArticleNumber(textFrame, json.doc.articleFormData.catalogData.articleNrInCatalog);
-    renderName(textFrame, json.doc.articleFormData.articleData.name);
-    renderDescription(textFrame, json.doc.articleFormData.articleData.description);
-    renderSize(textFrame, json.doc.articleFormData.articleData.size);
-    renderColorAndShape(textFrame, json.doc.articleFormData.articleData.colorAndShape);
-    renderSuggestedPrice(textFrame, json.doc.articleFormData.unbrandedArticlePrice.suggestedPrice);
+    renderArticleNumber(textFrame, json.articleFormData.catalogData.articleNrInCatalog);
+    renderName(textFrame, json.articleFormData.articleData.name);
+    renderDescription(textFrame, json.articleFormData.articleData.description);
+    renderSize(textFrame, json.articleFormData.articleData.size);
+    renderColorAndShape(textFrame, json.articleFormData.articleData.colorAndShape);
+    renderSuggestedPrice(textFrame, json.articleFormData.unbrandedArticlePrice.suggestedPrice);
     renderUnbrandedArticlePricesHeader(textFrame)
-    renderUnbrandedArticlePrices(textFrame, json.doc.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);
-    renderPosition(textFrame, json.doc.articleFormData.brandings[0].position);
+    renderUnbrandedArticlePrices(textFrame, json.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);
+    renderPosition(textFrame, json.articleFormData.brandings[0].position);
     renderBrandingsHeader(textFrame, page);
-    renderBrandings(textFrame, json.doc.articleFormData.brandings);
-    renderMinimumOrderQuantities(textFrame, json.doc.articleFormData.minimumOrderQuantities);
+    renderBrandings(textFrame, json.articleFormData.brandings);
+    renderMinimumOrderQuantities(textFrame, json.articleFormData.minimumOrderQuantities);
     textFrame.fit(FitOptions.FRAME_TO_CONTENT); 
     
     fitBoxes(textFrame, greyParentBox);
-    renderImages(json.doc.articleFormData.images, page, greyParentBox);
+    renderImages(json.articleFormData.images, page, greyParentBox);
     }
 
 function fitBoxes(textFrame, greyParentBox) {
@@ -151,8 +153,8 @@ function fitBoxes(textFrame, greyParentBox) {
 function sortByCategory(jsons) {
     for(var i = 1; i < jsons.length; i++) {
         var j = i;
-        var pos0 = jsons[j-1].doc.articleFormData.catalogData.positionInCatalog;
-        var pos1 = jsons[j].doc.articleFormData.catalogData.positionInCatalog;
+        var pos0 = jsons[j-1].articleFormData.catalogData.positionInCatalog;
+        var pos1 = jsons[j].articleFormData.catalogData.positionInCatalog;
         while(j > 0 && pos0 > pos1) {
             var temp = jsons[j-1];
             jsons[j-1] = jsons[j];

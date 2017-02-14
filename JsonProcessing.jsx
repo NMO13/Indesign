@@ -14,6 +14,7 @@
             articlesArray.push(parseJson(file));
         }
     }
+    articlesArray = [].concat.apply([], articlesArray);
     return articlesArray;
 }
 
