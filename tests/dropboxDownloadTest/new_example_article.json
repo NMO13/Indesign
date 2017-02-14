@@ -1,7 +1,4 @@
 {
-   "_id": "0bf82c87c4e4b1cc17467e4fa2021fb5",
-   "_rev": "2-63c8b46f90a27df0c9373ebedc2f0d61",
-   "doc": {
        "articleFormData": {
            "merchantOrSupplier": {
                "$type": "shared.articleformdata.Merchant",
@@ -552,7 +549,7 @@
            ],
            "images": [
                {
-                   "url": "https://www.dropbox.com/s/rsyy0mukdvbnf1c/image.jpg?dl=0",
+                   "url": "https://www.dropbox.com/s/22zg9bwhk9se853/Logo%20InfoDay.pdf?dl=0",
                    "description": "main image of article"
                }
            ],
@@ -588,6 +585,5 @@
            },
            "creationDate": "1479371749021"
        }
-   },
-   "kind": "Article"
-}
+   }
+

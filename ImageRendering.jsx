@@ -4,6 +4,8 @@ function renderImages(images, page, greyBox) {
     var largestY = 20;
     for(var i = 0; i < images.length; i++) {
         var url = images[i].url;
+        if(url == "")
+            continue;
         url = modifyImageUrl(url);
         var directory = downloadImages(url);
         var image = processDownloadedFile(directory);
@@ -116,19 +118,17 @@ function processDownloadedFile(directory) {
             unzip(file, directory);
             var image = findImage(directory);
             if(image == null) {
-                alert('Image was not found in zip');
                 throw new Error('Image was not found in zip');
                 }
             return image;
            }           
-        else if(extension =='jpg' || extension == 'jpeg' || extension == 'tif' || extension == 'psd' || extension =='eps')
+        else if(extension =='jpg' || extension == 'jpeg' || extension == 'tif' || extension == 'psd' || extension =='eps' || extension == 'pdf')
         {
             file.open("r");
             return file;
             }
         }
-    alert('Unrecognized file type: ' + extension);
-    throw new Error('Unrecognized file type');
+    throw new Error('Unrecognized file type: ' + extension);
     }
 
 function findImage(directory) {
@@ -157,7 +157,8 @@ function findImage(directory) {
     }
 
 function getExtension(file) {
-    return file.name.split('.').pop();
+    var filename =  file.name.split('.').pop();
+    return filename.toLowerCase();
     }
 
 function removeQueryString(file) {

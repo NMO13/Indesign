@@ -1,8 +1,8 @@
 ﻿function parseAllJsonFiles(directory) {
-        var folder = new Folder(directory);
+    var folder = new Folder(directory);
     var files = folder.getFiles();
     if(files.length == 0) {
-        alert("The download of the image file was not successful");
+        throw new Error('The download of the image file was not successful');
         return;
         }
     

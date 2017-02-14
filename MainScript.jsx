@@ -7,6 +7,7 @@ function main(jsonDir, tempImageDir)
 {
     // todo clear json dir
     // todo download jsons
+    // todo create temp image dir
     TempImageDir = tempImageDir
     setupDocument();
 

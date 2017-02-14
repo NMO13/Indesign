@@ -226,7 +226,9 @@ function createCell(textFrame, unbrandedPrices) {
         var firstInsertionPoint = textFrame.insertionPoints[-1].index;
         // Duplicate and anchor the duplicates to the selected text frame:  
         for(var i=0;i<unbrandedPrices.length;i++)  
-        {  
+        {
+            if(unbrandedPrices[i].numberOfArticles == "" || unbrandedPrices[i].price == "")
+                continue;
             var dup = frameWithTable.duplicate();  
            //textFrame.insertionPoints[-1].textFrames.add();
             dup.anchoredObjectSettings.insertAnchoredObject  
