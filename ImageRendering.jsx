@@ -41,6 +41,7 @@ function getParsedUrl(url) {
 
 function renderMainImage(image, page, greyBox, imageCounter) {
     var rect = placeImageInRect(image, page);
+    //rect.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.multiplyingCurrentDimensionsBy, [2, 2]);
     if(rect == null)
         return;
     if(page.side == PageSideOptions.RIGHT_HAND && page.index != 0) {        
@@ -84,6 +85,11 @@ function placeImageInRect(image, page) {
     var rect = page.rectangles.add();
     try {
         rect.place(image);
+        var image = rect.images[0];
+        var bounds = image.visibleBounds;
+        i//mage.visibleBounds[2] = 500;
+        i//mage.visibleBounds[3] = 500;
+        image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);
         rect.fit (FitOptions.FRAME_TO_CONTENT);
         rect.fit (FitOptions.PROPORTIONALLY);
         rect.fit (FitOptions.CENTER_CONTENT);
