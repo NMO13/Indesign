@@ -1,15 +1,6 @@
 ﻿function downloadImages(url) {
-    directory = TempImageDir + '/images';
-    executeApplescript (url, directory);
-    return directory;
-    }
-
-function executeApplescript(url, directory) {
-    var myAppleScript = 'do shell script "cd ' + directory + ' && rm -fr *"';
-    app.doScript(myAppleScript, ScriptLanguage.applescriptLanguage);
-    
-    myAppleScript = 'do shell script "cd '+ directory + ' && curl -L -O -J ' + url +'"';
-    app.doScript(myAppleScript, ScriptLanguage.applescriptLanguage); //todo implement timeout here
+    clearDir(TempImageDir);
+    downloadImage(url, TempImageDir);
     }
 
 function createOSXFilename(foldername, url, directory) {
@@ -23,4 +14,14 @@ function getFilename(url) {
       var fileName = url.split("/");
       fileName = fileName[fileName.length - 1]; 
       return fileName;
+    }
+
+function downloadMerchantSpecificImages(files) {
+    for(var i = 0; i < files.length; i++) {
+        var url = files[i].url;
+        if(url == "") {
+            continue;
+            }
+        downloadImage(url, MerchantImages);
+        }
     }

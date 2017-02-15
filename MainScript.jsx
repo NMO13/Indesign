@@ -1,14 +1,16 @@
 ﻿#include "JsonProcessing.jsx"
 #include "DocumentRendering.jsx"
 #include "ImageRendering.jsx"
+#include "FileOperations.jsx"
 // main code starts here
 
-function main(jsonDir, tempImageDir)
+function main(parentDir, entity)
 {
-    // todo clear json dir
-    // todo download jsons
-    // todo create temp image dir
-    TempImageDir = tempImageDir
+    var entityDir = parentDir + '/' + entity;
+    recreateDir(entityDir);
+    downloadArticlesFromEntity(entity, entityDir);
+    TempImageDir = recreateDir(entityDir + '/tempImages');
+    MerchantImages = recreateDir(entityDir + '/merchantFiles');
     setupDocument();
 
     var color = document.colors.add();
@@ -27,13 +29,13 @@ function main(jsonDir, tempImageDir)
         colorValue: [0, 0, 0, 0]
         };
 
-    var jsons = parseAllJsonFiles(jsonDir);
-    sortByCategory(jsons);
+    var articles = parseAllJsonFiles(entityDir);
+    sortByCategory(articles);
     
     var currentCategory = "";
-    for(var i = 0; i < jsons.length; i++) {
-        fillTextFrame(jsons[i]);
-        if(i < jsons.length - 1)
+    for(var i = 0; i < articles.length; i++) {
+        fillTextFrame(articles[i]);
+        if(i < articles.length - 1)
             addPage();
     }
 
@@ -142,6 +144,7 @@ function fillTextFrame(json) {
     
     fitBoxes(textFrame, greyParentBox);
     renderImages(json.articleFormData.images, page, greyParentBox);
+    downloadMerchantSpecificImages(json.articleFormData.merchantSpecificFiles);
     }
 
 function fitBoxes(textFrame, greyParentBox) {
@@ -162,5 +165,14 @@ function sortByCategory(jsons) {
             jsons[j] = temp;
             j = j - 1;
             }
+        }
+    }
+
+function executeScript(script) {
+       try {
+        app.doScript(script, ScriptLanguage.applescriptLanguage);
+    }
+    catch(e) {
+        throw e;
         }
     }

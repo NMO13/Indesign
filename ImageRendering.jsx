@@ -7,8 +7,8 @@ function renderImages(images, page, greyBox) {
         if(url == "")
             continue;
         url = modifyImageUrl(url);
-        var directory = downloadImages(url);
-        var image = processDownloadedFile(directory);
+        downloadImages(url);
+        var image = processDownloadedFile(TempImageDir);
         if(i == 0) {
             renderMainImage(image, page, greyBox, i + 1);
             }

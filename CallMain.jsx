@@ -1,3 +1,9 @@
 ﻿#include "MainScript.jsx"
 
-main('/Users/admin/Desktop/Indesign/tests/dropboxDownloadTest', '/Users/admin/Desktop');
+try {
+    main('/Users/admin/Desktop/InDesignStuff', 'Kneiko');
+}
+catch(e) {
+    //todo log here
+    alert(e);
+    }
