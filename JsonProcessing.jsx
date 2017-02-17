@@ -2,7 +2,7 @@
     var folder = new Folder(directory);
     var files = folder.getFiles();
     if(files.length == 0) {
-        throw new Error('The download of the image file was not successful');
+        throw new Error('No Json file was found in directory ' + directory);
         return;
         }
     
@@ -30,7 +30,7 @@ function parseJson(file) {
     }
     catch(error)
     {
-        $.writeln (error);
+        throw new Error('Could not parse file ' + file);
         }
 
     file.close();

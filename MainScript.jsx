@@ -28,18 +28,22 @@ function main(parentDir, entity)
         space: ColorSpace.CMYK,
         colorValue: [0, 0, 0, 0]
         };
+    logMe('Document successfuly created.');
 
     var articles = parseAllJsonFiles(entityDir);
     sortByCategory(articles);
+    logMe('Sorting of articles completed.');
     
-    var currentCategory = "";
+    logMe(articles.length + ' articles to render.');
     for(var i = 0; i < articles.length; i++) {
+        logMe('Rendering next article');
         fillTextFrame(articles[i]);
+        logMe('Completed article rendering');
         if(i < articles.length - 1)
             addPage();
     }
 
-    $.writeln("finished");
+    logMe('Finished');
     return document;
 }
 
@@ -128,6 +132,7 @@ function fillTextFrame(json) {
     var textFrame = page.textFrames.add();
     textFrame.geometricBounds = [10, 10, 250, 100];
     
+    logMe('Started with text rendering.');
     renderArticleNumber(textFrame, json.articleFormData.catalogData.articleNrInCatalog);
     renderName(textFrame, json.articleFormData.articleData.name);
     renderDescription(textFrame, json.articleFormData.articleData.description);
@@ -140,7 +145,8 @@ function fillTextFrame(json) {
     renderBrandingsHeader(textFrame, page);
     renderBrandings(textFrame, json.articleFormData.brandings);
     renderMinimumOrderQuantities(textFrame, json.articleFormData.minimumOrderQuantities);
-    textFrame.fit(FitOptions.FRAME_TO_CONTENT); 
+    textFrame.fit(FitOptions.FRAME_TO_CONTENT);
+    logMe('Completed text rendering.');
     
     fitBoxes(textFrame, greyParentBox);
     renderImages(json.articleFormData.images, page, greyParentBox);

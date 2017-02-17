@@ -17,6 +17,7 @@ function getFilename(url) {
     }
 
 function downloadMerchantSpecificImages(files) {
+    logMe('Downloading merchant specific images');
     for(var i = 0; i < files.length; i++) {
         var url = files[i].url;
         if(url == "") {
