@@ -36,7 +36,7 @@ function main(parentDir, entity)
     
     logMe(articles.length + ' articles to render.');
     for(var i = 0; i < articles.length; i++) {
-        logMe('Rendering next article');
+        logMe('Rendering article ' + i + '.');
         fillTextFrame(articles[i]);
         logMe('Completed article rendering');
         if(i < articles.length - 1)

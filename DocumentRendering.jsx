@@ -85,8 +85,11 @@ function renderBrandings(textFrame, brandings) {
      for(var i = 0; i < brandings.length; i++) {
          var branding = brandings[i];
          renderBrandingEntry(branding, textFrame);
-         renderInitialCosts(branding.initialCosts, textFrame);
-         renderFilmCosts(branding.filmCosts, textFrame);
+         if(branding.initialCosts != '')
+            renderInitialCosts(branding.initialCosts, textFrame);
+            
+         if(branding.filmCosts != '')
+            renderFilmCosts(branding.filmCosts, textFrame);
          }
     }
 

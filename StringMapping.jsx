@@ -4,22 +4,28 @@
    if(strArray[0] == "print") {
        return buildPrintString(strArray[1]);
        }
+   else if(strArray[1] == "print") {
+       return buildPrintString(strArray[0]);
+       }
    else if(strArray[0] == "additional") {
         return buildAdditionalColorBrandingString()
        }
    else if(strArray[0] == "digital") {
         return buildDigitalPrintString(strArray[2]);
        }
-   else if(brandingString == "branding using engraving") {
+   else if(strArray[1] == "digital") {
+        return buildDigitalPrintString(strArray[0]);
+       }
+   else if(brandingString == "engraving") {
         return buildBrandingUsingEngravingString(brandingString);
        }
-   else if(brandingString == "branding using etching") {
+   else if(brandingString == "etching") {
         return buildBrandingUsingEtchingString(brandingString)
        }
-   else if(brandingString == "branding using stitching") {
-        return buildBrandingUsingEtchingString(brandingString)
+   else if(brandingString == "stitching") {
+        return buildBrandingUsingStitchingString(brandingString)
        }
-   else if(strArray[0] == "user") {
+   else if(strArray[0] == "user-defined") {
         return buildUserDefinedBrandingString(strArray[3]);
        }
    else

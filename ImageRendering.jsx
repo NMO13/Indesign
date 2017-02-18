@@ -96,11 +96,14 @@ function placeImageInRect(image, page) {
         var bounds = image.visibleBounds;
         i//mage.visibleBounds[2] = 500;
         i//mage.visibleBounds[3] = 500;
-        image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);
-        rect.fit (FitOptions.FRAME_TO_CONTENT);
+        rect.fit (FitOptions.FRAME_TO_CONTENT);    
         rect.fit (FitOptions.PROPORTIONALLY);
-        rect.fit (FitOptions.CENTER_CONTENT);
+        rect.fit (FitOptions.CENTER_CONTENT);        
+        image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);        
         rect.strokeWeight = 0;
+                rect.fit (FitOptions.FRAME_TO_CONTENT);    
+        rect.fit (FitOptions.PROPORTIONALLY);
+        rect.fit (FitOptions.CENTER_CONTENT);   
     }
     catch(e) {
         return null;
