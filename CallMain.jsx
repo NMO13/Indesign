@@ -3,22 +3,26 @@
 try {
     var path = '/Users/admin/Desktop/InDesignStuff';
     
+    var kneiko = 'gafhkneik7';
+    
+    AllArticlesOfAllSuppliers = 'get-articles-of-all-suppliers';
+    
    
     LogfilePath = path;
     
-    logMe("Starting...");
-    main(path, 'Kneiko');
+    logInfo("Starting...");
+    main(path, AllArticlesOfAllSuppliers);
 }
 catch(e) {
-    logMe("An exception occured: " + e);
+    logCritical("An exception occured: " + e);
     alert(e);
     }
 
-function logMe(input) {
+function logMe(input, level) {
     
      var now = new Date();
 
-     var output = now.toTimeString() + ": " + input;
+     var output = now.toTimeString() + "-- " + level + ' :' + input;
 
      $.writeln(output);
 
@@ -31,3 +35,11 @@ function logMe(input) {
      logFile.close();
 
 }
+
+function logCritial(input) {
+    logMe(input, 'Critical');
+    }
+
+function logInfo(input) {
+    logMe(input, 'Info');
+    }

@@ -1,9 +1,9 @@
 ﻿#include "ImageDownload.jsx"
 function renderImages(images, page, greyBox) {
-    logMe('Starting image rendering.');
+    logInfo('Starting image rendering.');
     var posX, posY = 0;
     var largestY = 20;
-    logMe(images.length + ' images to render.');
+    logInfo(images.length + ' images to render.');
     for(var i = 0; i < images.length; i++) {
         var url = images[i].url;
         if(url == "")
@@ -28,7 +28,7 @@ function renderImages(images, page, greyBox) {
             posX = prevBounds[0];
             }
         }
-    logMe('Completed image rendering');
+    logInfo('Completed image rendering');
     }
 
 function modifyImageUrl(url) {
@@ -45,7 +45,7 @@ function getParsedUrl(url) {
     }
 
 function renderMainImage(image, page, greyBox, imageCounter) {
-    logMe('Rendering main image.');
+    logInfo('Rendering main image.');
     var rect = placeImageInRect(image, page);
     //rect.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.multiplyingCurrentDimensionsBy, [2, 2]);
     if(rect == null)
@@ -61,7 +61,7 @@ function renderMainImage(image, page, greyBox, imageCounter) {
     }
 
 function renderComplementaryImage(image, page, imageCounter, posX, posY) {
-    logMe('Rendering complementary image.');
+    logInfo('Rendering complementary image.');
     var rect = placeImageInRect(image, page);
     if(rect == null) {
         return [posX, posY];
@@ -123,7 +123,7 @@ function processDownloadedFile(directory) {
     var folder = new Folder(directory);
     var files = folder.getFiles();
     if(files.length == 0) {
-        logMe("The download of the image file was not successful");
+        logCritical("The download of the image file was not successful");
         return null;
         }
     for(i = 0; i < files.length; i++) {
@@ -131,11 +131,11 @@ function processDownloadedFile(directory) {
         var extension = getExtension(file);
         
         if(extension == "zip") {
-            logMe('Unzipping ' + file + '.');
+            logInfo('Unzipping ' + file + '.');
             unzip(file, directory);
             var image = findImage(directory);
             if(image == null) {
-                logMe('Image was not found in zip');
+                logCritical('Image was not found in zip');
                 }
             return image;
            }           
@@ -145,7 +145,7 @@ function processDownloadedFile(directory) {
             return file;
             }
         }
-    logMe('The extension of the file ' + file + ' was not recognized.');
+    logCritical('The extension of the file ' + file + ' was not recognized.');
     return null;
     }
 
