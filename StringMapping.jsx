@@ -26,7 +26,7 @@
         return buildBrandingUsingStitchingString(brandingString)
        }
    else if(strArray[0] == "user-defined") {
-        return buildUserDefinedBrandingString(strArray[3]);
+        return buildUserDefinedBrandingString(strArray[2]);
        }
    else
    return "Unbekannt";

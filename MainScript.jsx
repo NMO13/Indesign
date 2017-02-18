@@ -142,7 +142,6 @@ function fillTextFrame(json) {
     renderUnbrandedArticlePricesHeader(textFrame)
     renderUnbrandedArticlePrices(textFrame, json.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);
     renderPosition(textFrame, json.articleFormData.brandings[0].position);
-    renderBrandingsHeader(textFrame, page);
     renderBrandings(textFrame, json.articleFormData.brandings);
     renderMinimumOrderQuantities(textFrame, json.articleFormData.minimumOrderQuantities);
     textFrame.fit(FitOptions.FRAME_TO_CONTENT);

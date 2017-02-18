@@ -67,12 +67,14 @@ function renderPosition(textFrame, position) {
     setFontAndTextParentStory("\n", font0, textFrame, 7);
     setFontAndTextParentStory("\n", font0, textFrame, 7);
     
-    var text = "Veredelungsfläche: ";
-    font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndTextParentStory(text + position, font0, textFrame, 7);
+    if(position != '') {
+        var text = "Veredelungsfläche: ";
+        font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
+        setFontAndTextParentStory(text + position, font0, textFrame, 7);
+        }
     }
 
-function renderBrandingsHeader(textFrame, page) {
+function renderBrandingsHeader(textFrame) {
      var text = "Veredelung pro Stück:";     
      var font0 = new FontInfo(6, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
      textFrame.parentStory.insertionPoints[-1].contents = "\n";
@@ -80,29 +82,52 @@ function renderBrandingsHeader(textFrame, page) {
     }
 
 function renderBrandings(textFrame, brandings) {
-     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-     
+     var brandingsHeaderAlreadyRendered = false;
      for(var i = 0; i < brandings.length; i++) {
          var branding = brandings[i];
-         renderBrandingEntry(branding, textFrame);
-         if(branding.initialCosts != '')
+         brandingsHeaderAlreadyRendered= renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered);
+         if(branding.initialCosts != '') {
             renderInitialCosts(branding.initialCosts, textFrame);
-            
-         if(branding.filmCosts != '')
-            renderFilmCosts(branding.filmCosts, textFrame);
+            if(brandingsHeaderAlreadyRendered == false) {
+                renderBrandingsHeader(textFrame);
+                brandingsHeaderAlreadyRendered = true;
+            }
          }
+            
+         if(branding.filmCosts != '') {
+            renderFilmCosts(branding.filmCosts, textFrame);
+            if(brandingsHeaderAlreadyRendered == false) {
+                renderBrandingsHeader(textFrame);
+                brandingsHeaderAlreadyRendered = true;
+            }
+
+         }
+     }
     }
 
-function renderBrandingEntry(branding, textFrame) {
+function renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered) {
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    textFrame.parentStory.insertionPoints[-1].contents = "\n";
-    setFontAndTextParentStory(mapBrandingName(branding.name) + ": ", font0, textFrame, 7);
+    
+    var brandingNameAlreadyRendered = false;
     for(var i = 0; i < branding.scales.length; i++) {
         var scale = branding.scales[i];
+        if(scale.numberOfArticles == "" && scale.price == "")
+            continue;
+            
+        if(brandingsHeaderAlreadyRendered == false) {
+            renderBrandingsHeader(textFrame);
+            brandingsHeaderAlreadyRendered = true;
+            }
+        if(brandingNameAlreadyRendered == false) {
+            textFrame.parentStory.insertionPoints[-1].contents = "\n";
+            setFontAndTextParentStory(mapBrandingName(branding.name) + ": ", font0, textFrame, 7);
+            brandingNameAlreadyRendered = true;
+            }
         setFontAndTextParentStory(scale.numberOfArticles, font0, textFrame, 7);
         setFontAndTextParentStory(" – " + scale.price, font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
         }
+    return brandingsHeaderAlreadyRendered;
     }
 
 function renderInitialCosts(initialCosts, textFrame) {
@@ -120,12 +145,24 @@ function renderFilmCosts(filmCosts, textFrame) {
 function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
     
-    if(minimumOrderQuantities.length > 0) {
+    /*if(minimumOrderQuantities.length > 0) {
         textFrame.parentStory.insertionPoints[-1].contents = "\n";
         setFontAndTextParentStory("Mindestbestellmenge: ", font0, textFrame, 7);
-        }
+        }*/
+    
+    var minimumOQTitleAlreadyRendered = false;
     for(var i = 0; i < minimumOrderQuantities.length; i++) {
         var quantity = minimumOrderQuantities[i];
+        
+        if(quantity.condition == '' && quantity.quantity == '') {
+                continue;
+            }
+        
+        if(minimumOQTitleAlreadyRendered == false) {
+            textFrame.parentStory.insertionPoints[-1].contents = "\n";
+            setFontAndTextParentStory("Mindestbestellmenge: ", font0, textFrame, 7);
+            minimumOQTitleAlreadyRendered = true;
+            }
         setFontAndTextParentStory(quantity.condition + " ", font0, textFrame, 7);
         setFontAndTextParentStory(quantity.quantity, font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
