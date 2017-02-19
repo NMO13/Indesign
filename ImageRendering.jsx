@@ -37,6 +37,9 @@ function modifyImageUrl(url) {
     if(parsedUrl.address == 'www.zertuscloud.com') {
         url = url + '/download';
         }
+    else if(parsedUrl.address == 'www.werbemittelhersteller.com') {
+        url = url.replace('?id=', '?down=');
+        }
         
     return url;
     }
