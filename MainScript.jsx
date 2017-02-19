@@ -26,8 +26,17 @@ function main(parentDir, entity)
         name: "color1",
         model: ColorModel.PROCESS,
         space: ColorSpace.CMYK,
-        colorValue: [0, 0, 0, 0]
+        colorValue: [15, 100, 100, 0]
         };
+    
+    color = document.colors.add();
+    color.properties = {
+        name: "color2",
+        model: ColorModel.PROCESS,
+        space: ColorSpace.CMYK,
+        colorValue: [45, 23, 80, 0]
+        };
+    
     logInfo('Document successfuly created.');
 
     var articles = parseAllJsonFiles(entityDir);

@@ -36,7 +36,7 @@ function logMe(input, level) {
 
 }
 
-function logCritial(input) {
+function logCritical(input) {
     logMe(input, 'Critical');
     }
 

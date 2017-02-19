@@ -4,29 +4,30 @@ function renderImages(images, page, greyBox) {
     var posX, posY = 0;
     var largestY = 20;
     logInfo(images.length + ' images to render.');
+    var imageCounter = 0;
     for(var i = 0; i < images.length; i++) {
         var url = images[i].url;
         if(url == "")
             continue;
+        
         url = modifyImageUrl(url);
         downloadImages(url);
         var image = processDownloadedFile(TempImageDir);
-        if(image == null)
-            continue;
         if(i == 0) {
-            renderMainImage(image, page, greyBox, i + 1);
+            renderMainImage(image, page, greyBox, imageCounter + 1);
             }
         else {
-            if(i % 3 == 1) {
+            if(imageCounter % 3 == 1) {
                 posX = 0;
                 posY += largestY;
                 }
-            var prevBounds = renderComplementaryImage(image, page, i + 1, posX, posY);
+            var prevBounds = renderComplementaryImage(image, page, imageCounter + 1, posX, posY);
             if(prevBounds[1] > largestY) {
                 largestY = prevBounds[1];
                 }
             posX = prevBounds[0];
             }
+        imageCounter++;
         }
     logInfo('Completed image rendering');
     }
@@ -90,15 +91,18 @@ function renderComplementaryImage(image, page, imageCounter, posX, posY) {
 
 function placeImageInRect(image, page) {
     var rect = page.rectangles.add();
+    var isValidImage = false;
     try {
         rect.place(image);
         var image = rect.images[0];
-        var bounds = image.visibleBounds;
-        i//mage.visibleBounds[2] = 500;
-        i//mage.visibleBounds[3] = 500;
+        //var bounds = image.visibleBounds;
+        //image.visibleBounds[2] = 500;
+        //image.visibleBounds[3] = 500;
         rect.fit (FitOptions.FRAME_TO_CONTENT);    
         rect.fit (FitOptions.PROPORTIONALLY);
-        rect.fit (FitOptions.CENTER_CONTENT);        
+        rect.fit (FitOptions.CENTER_CONTENT);
+        
+        isValidImage = true;
         image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);        
         rect.strokeWeight = 0;
                 rect.fit (FitOptions.FRAME_TO_CONTENT);    
@@ -106,7 +110,16 @@ function placeImageInRect(image, page) {
         rect.fit (FitOptions.CENTER_CONTENT);   
     }
     catch(e) {
-        return null;
+        
+        if(isValidImage == false) {
+            var color = document.colors.itemByName("color2");
+            rect.fillColor = color;
+            var gb = rect.geometricBounds;
+            gb[2] = gb[2] + 10;
+            gb[3] = gb[3] + 10;
+            rect.geometricBounds = gb;
+            logCritical('Could not create rectangle for image');
+            } 
         }
     return rect;
     }
@@ -139,7 +152,7 @@ function processDownloadedFile(directory) {
                 }
             return image;
            }           
-        else if(extension =='jpg' || extension == 'jpeg' || extension == 'tif' || extension == 'psd' || extension =='eps' || extension == 'pdf')
+        else if(isKnownExtension(extension))
         {
             file.open("r");
             return file;
@@ -147,6 +160,10 @@ function processDownloadedFile(directory) {
         }
     logCritical('The extension of the file ' + file + ' was not recognized.');
     return null;
+    }
+
+function isKnownExtension(extension) {
+    return extension =='jpg' || extension == 'jpeg' || extension == 'tif' || extension == 'psd' || extension =='eps' || extension == 'pdf' || extension == 'ai';
     }
 
 function findImage(directory) {
@@ -161,7 +178,7 @@ function findImage(directory) {
         var file = files[i];      
         if(file instanceof File) {
             var extension = getExtension(file);
-            if(extension =='jpg' | extension == 'jpeg') {
+            if(isKnownExtension(extension)) {
                 file.open("r");
                 return file;
             }
@@ -224,19 +241,21 @@ function parseUrl(url) {
     url = url.slice(3);
     parsedURL.path = url.join("/");
   
-    if (parsedURL.port.charAt(0) == ':')
-    {
-       parsedURL.port = parsedURL.port.slice(1);
-    }
+    if(parsedURL.port != null) {
+        if (parsedURL.port.charAt(0) == ':')
+        {
+           parsedURL.port = parsedURL.port.slice(1);
+        }
 
-    if (parsedURL.port != "")
-    {
-       parsedURL.port = parseInt(parsedURL.port);
-    }
-  
-    if (parsedURL.port == "" || parsedURL.port < 0 || parsedURL.port > 65535)
-    {
-      parsedURL.port = 80;
+        if (parsedURL.port != "")
+        {
+           parsedURL.port = parseInt(parsedURL.port);
+        }
+      
+        if (parsedURL.port == "" || parsedURL.port < 0 || parsedURL.port > 65535)
+        {
+          parsedURL.port = 80;
+        }
     }
 
     parsedURL.path = parsedURL.path;

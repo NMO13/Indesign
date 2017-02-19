@@ -37,8 +37,8 @@ function downloadImage(url, directory) {
     var retryCounter = 0;
     while(retryCounter < 3)  {
         try {
-            myAppleScript = 'do shell script "cd '+ directory + ' && curl -L -O -J ' + url +'"';
-            executeScript(myAppleScript, ScriptLanguage.applescriptLanguage); //todo implement timeout here
+            myAppleScript = 'do shell script "cd '+ directory + ' && curl -L -O -J --max-time 60 ' + url +'"';
+            executeScript(myAppleScript, ScriptLanguage.applescriptLanguage);
             break;
         }
         catch(error) {
