@@ -106,11 +106,10 @@ function placeImageInRect(image, page) {
         rect.fit (FitOptions.CENTER_CONTENT);
         
         isValidImage = true;
-        image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);        
-        rect.strokeWeight = 0;
-                rect.fit (FitOptions.FRAME_TO_CONTENT);    
-        rect.fit (FitOptions.PROPORTIONALLY);
-        rect.fit (FitOptions.CENTER_CONTENT);   
+        
+        rect.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);
+        image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);
+        rect.strokeWeight = 0; 
     }
     catch(e) {
         
