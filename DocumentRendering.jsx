@@ -15,7 +15,7 @@ function renderName(textFrame, name) {
 
 function renderSize(textFrame, size) {
     newLine(textFrame);
-    var text = "Maße/Größe(n) ";    
+    var text = "Maße/Größe(n): ";    
     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
     setFontAndText(text + size, font, textFrame, 8);
     newLine(textFrame);
@@ -31,7 +31,12 @@ function renderColorAndShape(textFrame, cas) {
 function renderSuggestedPrice(textFrame, suggestedPrice) {
     var text = "Richtpreis: ";
     var font = new FontInfo(7.5, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndText(text + suggestedPrice, font, textFrame, 8);
+    if(suggestedPrice != "") {
+        setFontAndText(text + suggestedPrice + " €", font, textFrame, 8);
+        }
+    else {
+        setFontAndText(text, font, textFrame, 8);
+        }
     newLine(textFrame);
     }
 
@@ -63,15 +68,10 @@ function renderUnbrandedArticlePrices(textFrame, unbrandedPrices, page) {
     }
 
 function renderPosition(textFrame, position) {
-    var font0 = new FontInfo(6, "Helvetica Neue LT Pro	47 Light Condensed", document.colors.itemByName("Black"));
+    var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
     setFontAndTextParentStory("\n", font0, textFrame, 7);
-    setFontAndTextParentStory("\n", font0, textFrame, 7);
-    
-    if(position != '') {
-        var text = "Veredelungsfläche: ";
-        font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-        setFontAndTextParentStory(text + position, font0, textFrame, 7);
-        }
+    var text = "Veredelungsfläche: ";
+    setFontAndTextParentStory(text + position, font0, textFrame, 7);
     }
 
 function renderBrandingsHeader(textFrame) {
@@ -81,8 +81,16 @@ function renderBrandingsHeader(textFrame) {
      setFontAndTextParentStory(text, font0, textFrame, 7);
     }
 
-function renderBrandings(textFrame, brandings) {
+function renderPositionAndBrandings(textFrame, brandings, position) {
+    var font0 = new FontInfo(6, "Helvetica Neue LT Pro	77 Light Condensed", document.colors.itemByName("Black"));
+    setFontAndTextParentStory("\n", font0, textFrame, 7);
+    
      var brandingsHeaderAlreadyRendered = false;
+     if(position != "") {
+         renderBrandingsHeader(textFrame);
+         renderPosition(textFrame, position);
+         brandingsHeaderAlreadyRendered = true;
+         }
      for(var i = 0; i < brandings.length; i++) {
          var branding = brandings[i];
          brandingsHeaderAlreadyRendered= renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered);
@@ -124,22 +132,24 @@ function renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered
             brandingNameAlreadyRendered = true;
             }
         setFontAndTextParentStory(scale.numberOfArticles, font0, textFrame, 7);
-        setFontAndTextParentStory(" – " + scale.price, font0, textFrame, 7);
+        setFontAndTextParentStory(" – " + scale.price + " €", font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
         }
+    textFrame.characters[-1] .remove();
+    textFrame.characters[-1] .remove();
     return brandingsHeaderAlreadyRendered;
     }
 
 function renderInitialCosts(initialCosts, textFrame) {
     textFrame.parentStory.insertionPoints[-1].contents = "\n";
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndTextParentStory("Initiale Kosten: " + initialCosts, font0, textFrame, 7);
+    setFontAndTextParentStory("Initiale Kosten: " + initialCosts + " €", font0, textFrame, 7);
     }
 
 function renderFilmCosts(filmCosts, textFrame) {
     textFrame.parentStory.insertionPoints[-1].contents = "\n";
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndTextParentStory("Beschichtungskosten: " + filmCosts, font0, textFrame, 7);
+    setFontAndTextParentStory("Beschichtungskosten: " + filmCosts + " €", font0, textFrame, 7);
     }
 
 function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
@@ -289,7 +299,7 @@ function createCell(textFrame, unbrandedPrices) {
             
             cell = dup.tables[0].rows[1].cells[0];
             font = new FontInfo(6, "Helvetica Neue LT Pro	77 Bold Condensed", document.colors.itemByName("Black"));
-            setFontAndText(unbrandedPrices[i].price, font, cell, 8.5);
+            setFontAndText(unbrandedPrices[i].price + ' €', font, cell, 8.5);
             centerInFrame(cell);
             
             cell.topInset = 0;

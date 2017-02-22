@@ -19,6 +19,7 @@
 }
 
 function parseJson(file) {
+    file.encoding = "UTF-8";
     file.open('r');
     var content = file.read();
 

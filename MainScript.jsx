@@ -150,8 +150,8 @@ function fillTextFrame(json) {
     renderSuggestedPrice(textFrame, json.articleFormData.unbrandedArticlePrice.suggestedPrice);
     renderUnbrandedArticlePricesHeader(textFrame)
     renderUnbrandedArticlePrices(textFrame, json.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);
-    renderPosition(textFrame, json.articleFormData.brandings[0].position);
-    renderBrandings(textFrame, json.articleFormData.brandings);
+    //renderPosition(textFrame, json.articleFormData.brandings[0].position);
+    renderPositionAndBrandings(textFrame, json.articleFormData.brandings, json.articleFormData.brandings[0].position);
     renderMinimumOrderQuantities(textFrame, json.articleFormData.minimumOrderQuantities);
     textFrame.fit(FitOptions.FRAME_TO_CONTENT);
     logInfo('Completed text rendering.');
