@@ -117,6 +117,7 @@ function renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
     
     var brandingNameAlreadyRendered = false;
+    var atLeastOneItemRendered = false;
     for(var i = 0; i < branding.scales.length; i++) {
         var scale = branding.scales[i];
         if(scale.numberOfArticles == "" && scale.price == "")
@@ -131,12 +132,15 @@ function renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered
             setFontAndTextParentStory(mapBrandingName(branding.name) + ": ", font0, textFrame, 7);
             brandingNameAlreadyRendered = true;
             }
+        atLeastOneItemRendered = true;
         setFontAndTextParentStory(scale.numberOfArticles, font0, textFrame, 7);
         setFontAndTextParentStory(" – " + scale.price + " €", font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
         }
-    textFrame.characters[-1] .remove();
-    textFrame.characters[-1] .remove();
+    if(atLeastOneItemRendered == true) {
+        textFrame.characters[-1] .remove();
+        textFrame.characters[-1] .remove();
+        }
     return brandingsHeaderAlreadyRendered;
     }
 
@@ -155,12 +159,8 @@ function renderFilmCosts(filmCosts, textFrame) {
 function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
     
-    /*if(minimumOrderQuantities.length > 0) {
-        textFrame.parentStory.insertionPoints[-1].contents = "\n";
-        setFontAndTextParentStory("Mindestbestellmenge: ", font0, textFrame, 7);
-        }*/
-    
     var minimumOQTitleAlreadyRendered = false;
+    var atLeastOneQuantityPresent = false;
     for(var i = 0; i < minimumOrderQuantities.length; i++) {
         var quantity = minimumOrderQuantities[i];
         
@@ -176,9 +176,12 @@ function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
         setFontAndTextParentStory(quantity.condition + " ", font0, textFrame, 7);
         setFontAndTextParentStory(quantity.quantity, font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
+        atLeastOneQuantityPresent = true;
         }
-        textFrame.characters[-1].remove();
-        textFrame.characters[-1] .remove();
+        if(atLeastOneQuantityPresent == true) {
+            textFrame.characters[-1].remove();
+            textFrame.characters[-1] .remove();
+        }
     }
 
 function setFontAndTextParentStory(text, fontInfo, textFrame, leadingVal) {            
