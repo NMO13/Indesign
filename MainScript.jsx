@@ -4,13 +4,14 @@
 #include "FileOperations.jsx"
 // main code starts here
 
-function main(parentDir, entity)
+function main(parentDir, entity, keepImages)
 {
     var entityDir = parentDir + '/' + entity;
     recreateDir(entityDir);
     downloadArticlesFromEntity(entity, entityDir);
     TempImageDir = recreateDir(entityDir + '/tempImages');
     MerchantImages = recreateDir(entityDir + '/merchantFiles');
+    KeepImages = keepImages;
     setupDocument();
 
     var color = document.colors.add();

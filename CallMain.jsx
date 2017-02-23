@@ -11,7 +11,7 @@ try {
     LogfilePath = path;
     
     logInfo("Starting...");
-    main(path, AllArticlesOfAllSuppliers);
+    main(path, kneiko, true);
 }
 catch(e) {
     logCritical("An exception occured: " + e);

@@ -51,7 +51,6 @@ function getParsedUrl(url) {
 function renderMainImage(image, page, greyBox, imageCounter) {
     logInfo('Rendering main image.');
     var rect = placeImageInRect(image, page);
-    //rect.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.multiplyingCurrentDimensionsBy, [2, 2]);
     if(rect == null)
         return;
     if(page.side == PageSideOptions.RIGHT_HAND && page.index != 0) {        

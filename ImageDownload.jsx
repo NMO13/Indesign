@@ -1,5 +1,7 @@
 ﻿function downloadImages(url) {
-    clearDir(TempImageDir);
+    if(KeepImages == false) {
+        clearDir(TempImageDir);
+    }
     downloadImage(url, TempImageDir);
     }
 
