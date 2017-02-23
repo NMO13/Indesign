@@ -1,7 +1,7 @@
 ﻿#include "MainScript.jsx"
 
 try {
-    var path = '/Users/admin/Desktop/InDesignStuff';
+    var path = '/Users/admin/Desktop/IndesignStuff';
     
     var kneiko = 'gafhkneik7';
     

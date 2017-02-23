@@ -97,9 +97,6 @@ function placeImageInRect(image, page) {
     try {
         rect.place(image);
         var image = rect.images[0];
-        //var bounds = image.visibleBounds;
-        //image.visibleBounds[2] = 500;
-        //image.visibleBounds[3] = 500;
         rect.fit (FitOptions.FRAME_TO_CONTENT);    
         rect.fit (FitOptions.PROPORTIONALLY);
         rect.fit (FitOptions.CENTER_CONTENT);
@@ -153,14 +150,27 @@ function processDownloadedFile(directory) {
                 }
             return image;
            }           
-        else if(isKnownExtension(extension))
-        {
+        else if(isKnownExtension(extension)) {
+            copyToAllImages(file);
             file.open("r");
             return file;
             }
         }
     logCritical('The extension of the file ' + file + ' was not recognized.');
     return null;
+    }
+
+function copyToAllImages(file) {
+    if(KeepImages == true && file != null) {
+        addFileNumber(file);
+        copyImage(file, AllImageDir);
+        }
+    }
+
+// we want a distinct filename before we copy it (avoid name clashes)
+function addFileNumber(file) {
+    var newName = FileCounter + file.name;
+    file.rename(newName);
     }
 
 function isKnownExtension(extension) {
@@ -180,6 +190,7 @@ function findImage(directory) {
         if(file instanceof File) {
             var extension = getExtension(file);
             if(isKnownExtension(extension)) {
+                copyToAllImages(file);
                 file.open("r");
                 return file;
             }

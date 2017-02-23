@@ -11,7 +11,11 @@ function main(parentDir, entity, keepImages)
     downloadArticlesFromEntity(entity, entityDir);
     TempImageDir = recreateDir(entityDir + '/tempImages');
     MerchantImages = recreateDir(entityDir + '/merchantFiles');
-    KeepImages = keepImages;
+    FileCounter = 0;
+    if(keepImages == true) {
+        KeepImages = keepImages;
+        AllImageDir = recreateDir(entityDir + '/allImages');
+    }
     setupDocument();
 
     var color = document.colors.add();
@@ -188,6 +192,7 @@ function executeScript(script) {
         app.doScript(script, ScriptLanguage.applescriptLanguage);
     }
     catch(e) {
+        logCritical(e);
         throw e;
         }
     }

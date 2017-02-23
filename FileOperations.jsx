@@ -42,15 +42,34 @@ function downloadImage(url, directory) {
             break;
         }
         catch(error) {
-            logCritical('Image download attempt number ' + retryCounter + ' was not successful.');
+            logCritical('Image download attempt number ' + retryCounter + ' was not successful. \n ' + 'Reason: ' + error);
             retryCounter++;
             }
         }
     
     if(retryCounter < 3) {
-        logInfo('Image ' + url + ' successfully downloaded.');
+        var folder = new Folder(directory);
+        var files = folder.getFiles();
+        if(files.length != 1) {
+            logCritical(files.length + ' files have been downloaded! But should be exactly 1 file.');
+            }
+        for(i = 0; i < files.length; i++) {
+            var file = new File(files[i]);
+            logInfo('Image ' + file + ' successfully downloaded.');
+            }
+        FileCounter++;
         }
     else {
         logCritical('Could not download image ' + url);
         }
+    }
+
+function copyImage(imageDir, targetDir) {
+    imageDir = imageDir.fsName;
+    imageDir = '\'' + imageDir + '\'';
+    
+    targetDir = '\'' + targetDir + '\'';
+    
+    var myAppleScript = 'do shell script "cp ' + imageDir + ' ' + targetDir + ' "';
+    executeScript(myAppleScript, ScriptLanguage.applescriptLanguage);
     }
