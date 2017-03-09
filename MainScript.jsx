@@ -49,12 +49,16 @@ function main(parentDir, entity, keepImages)
     logInfo('Sorting of articles completed.');
     
     logInfo(articles.length + ' articles to render.');
+    var yOffset = 20;
     for(var i = 0; i < articles.length; i++) {
-        logInfo('Rendering article ' + i + ': ' + articles[i].articleFormData.articleData.name + '.');
-        fillTextFrame(articles[i]);
-        logInfo('Completed article rendering');
-        if(i < articles.length - 1)
+        if(i != 0 && i % 3 == 0) {
             addPage();
+            yOffset = 20;
+            }
+        logInfo('Rendering article ' + i + ': ' + articles[i].articleFormData.articleData.name + '.');
+        yOffset = fillTextFrame(articles[i], yOffset);
+        yOffset += 10;
+        logInfo('Completed article rendering');
     }
 
     logInfo('Finished');
@@ -139,7 +143,7 @@ function createGreyBox(page) {
     return parentFrame;
     }
 
-function fillTextFrame(json) {
+function fillTextFrame(json, yOffset) {
     var page = getLastPage();
     var greyParentBox = createGreyBox(page);
    
@@ -155,22 +159,21 @@ function fillTextFrame(json) {
     renderSuggestedPrice(textFrame, json.articleFormData.unbrandedArticlePrice.suggestedPrice);
     renderUnbrandedArticlePricesHeader(textFrame)
     renderUnbrandedArticlePrices(textFrame, json.articleFormData.unbrandedArticlePrice.unbrandedArticleScales, page);
-    //renderPosition(textFrame, json.articleFormData.brandings[0].position);
     renderPositionAndBrandings(textFrame, json.articleFormData.brandings, json.articleFormData.brandings[0].position);
     renderMinimumOrderQuantities(textFrame, json.articleFormData.minimumOrderQuantities);
     textFrame.fit(FitOptions.FRAME_TO_CONTENT);
     logInfo('Completed text rendering.');
     
-    fitBoxes(textFrame, greyParentBox);
-    renderImages(json.articleFormData.images, page, greyParentBox);
+    fitBoxes(textFrame, greyParentBox, yOffset);
+   // renderImages(json.articleFormData.images, page, greyParentBox);
     downloadMerchantSpecificImages(json.articleFormData.merchantSpecificFiles);
+    return greyParentBox.visibleBounds[2];
     }
 
-function fitBoxes(textFrame, greyParentBox) {
+function fitBoxes(textFrame, greyParentBox, yOffset) {
     var padding = 3;
-    textFrame.move([20 + padding, 20 + padding]);
-    greyParentBox.geometricBounds = [20, 20, textFrame.geometricBounds[2] + padding, textFrame.geometricBounds[3] + padding];
-    
+    textFrame.move([20 + padding, padding + yOffset]);
+    greyParentBox.geometricBounds = [yOffset, 20, textFrame.geometricBounds[2] + padding, textFrame.geometricBounds[3] + padding];  
     }
 
 function sortByCategory(jsons) {
