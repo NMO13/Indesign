@@ -258,7 +258,7 @@ function createCell(textFrame, unbrandedPrices) {
         // Adding a table:  
         
         var table = frameWithTable.insertionPoints[0].tables.add();
-       // table.rows.everyItem().autoGrow = false;
+        
         table.bodyRowCount = 2;
         table.columnCount = 1;
         table.width = 13;

@@ -2,7 +2,7 @@
 function renderImages(images, page, greyBox) {
     logInfo('Starting image rendering.');
     var posX, posY = 0;
-    var largestY = 20;
+    var largestY = greyBox.geometricBounds[0];
     logInfo(images.length + ' images to render.');
     var imageCounter = 0;
     for(var i = 0; i < images.length; i++) {
@@ -19,10 +19,10 @@ function renderImages(images, page, greyBox) {
         else {
             if(imageCounter % 3 == 1) {
                 posX = 0;
-                posY += largestY;
+                posY = largestY;
                 }
             var prevBounds = renderComplementaryImage(image, page, imageCounter + 1, posX, posY);
-            if(prevBounds[1] > largestY) {
+            if(prevBounds[1]  > largestY) {
                 largestY = prevBounds[1];
                 }
             posX = prevBounds[0];
@@ -88,7 +88,7 @@ function renderComplementaryImage(image, page, imageCounter, posX, posY) {
         createImageCounterFrame(page, posX + offset, posY, imageCounter);
         posX += rect.geometricBounds[3] - rect.geometricBounds[1];
         }
-    return [posX, rect.geometricBounds[2] - rect.geometricBounds[0]];
+    return [posX, rect.geometricBounds[2]];
     }
 
 function placeImageInRect(image, page) {

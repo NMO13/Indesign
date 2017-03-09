@@ -165,7 +165,7 @@ function fillTextFrame(json, yOffset) {
     logInfo('Completed text rendering.');
     
     fitBoxes(textFrame, greyParentBox, yOffset);
-   // renderImages(json.articleFormData.images, page, greyParentBox);
+    renderImages(json.articleFormData.images, page, greyParentBox);
     downloadMerchantSpecificImages(json.articleFormData.merchantSpecificFiles);
     return greyParentBox.visibleBounds[2];
     }
