@@ -133,7 +133,7 @@ function renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered
             brandingNameAlreadyRendered = true;
             }
         atLeastOneItemRendered = true;
-        setFontAndTextParentStory(scale.numberOfArticles, font0, textFrame, 7);
+        setFontAndTextParentStoryWithThousandsSeparator(scale.numberOfArticles, font0, textFrame, 7);
         setFontAndTextParentStory(" – " + scale.price + " €", font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
         }
@@ -174,7 +174,7 @@ function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
             minimumOQTitleAlreadyRendered = true;
             }
         setFontAndTextParentStory(quantity.condition + " ", font0, textFrame, 7);
-        setFontAndTextParentStory(quantity.quantity, font0, textFrame, 7);
+        setFontAndTextParentStoryWithThousandsSeparator(quantity.quantity, font0, textFrame, 7);
         setFontAndTextParentStory(" / ", font0, textFrame, 7);
         atLeastOneQuantityPresent = true;
         }
@@ -187,6 +187,31 @@ function renderMinimumOrderQuantities(textFrame, minimumOrderQuantities) {
 function setFontAndTextParentStory(text, fontInfo, textFrame, leadingVal) {            
       try {
             var firstInsertionPoint = textFrame.insertionPoints[-1].index;
+            
+            textFrame.parentStory.insertionPoints[-1].contents = text;
+            
+            var textRange = textFrame.characters.itemByRange(textFrame.insertionPoints[firstInsertionPoint],
+                        textFrame.insertionPoints[-1]);
+            textRange.tracking = 30;
+            textRange.leading = leadingVal;
+
+            textRange.fillColor = fontInfo.fontColor;
+            textRange.appliedFont = app.fonts.itemByName(fontInfo.fontName);
+            textRange.pointSize = fontInfo.fontSize;
+            }
+            catch(e) {
+                alert (e);
+        }
+    }
+
+function setFontAndTextParentStoryWithThousandsSeparator(text, fontInfo, textFrame, leadingVal) {            
+      try {
+            var firstInsertionPoint = textFrame.insertionPoints[-1].index;
+            
+            var wert = parseInt(text);
+            if(!isNaN(wert)) {
+                text = wert.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                }
             
             textFrame.parentStory.insertionPoints[-1].contents = text;
             
@@ -222,6 +247,14 @@ function setFontAndText(text, fontInfo, textFrame, leadingVal) {
         catch(e) {
             alert (e);
         }
+    }
+
+function setFontAndTextWithThousandsSeparator(text, fontInfo, textFrame, leadingVal) {
+    var wert = parseInt(text);
+    if(!isNaN(wert)) {
+        text = wert.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+    setFontAndText (text, fontInfo, textFrame, leadingVal);
     }
 
 function setText(text, textFrame) {
@@ -292,7 +325,7 @@ function createCell(textFrame, unbrandedPrices) {
             
             var cell = dup.tables[0].rows[0].cells[0];
             var font = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-            setFontAndText(unbrandedPrices[i].numberOfArticles, font, cell, 8.5);
+            setFontAndTextWithThousandsSeparator(unbrandedPrices[i].numberOfArticles, font, cell, 8.5);
             centerInFrame(cell);
             
             cell.topInset = 0;
