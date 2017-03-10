@@ -161,12 +161,20 @@ function processDownloadedFile(directory) {
     }
 
 function copyToAllImages(file) {
+    file = modifyImageName(file);
     if(KeepImages == true && file != null) {
         addFileNumber(file);
         copyImage(file, AllImageDir);
         }
     }
 
+function modifyImageName(file) {
+    var dec = decodeURIComponent(file.name);
+    var str = dec.replace(/\s/g, '');
+    str = str.replace(/[^a-zA-Z. ]/g, 'x');
+    file.rename(str);
+    return file;
+    }
 // we want a distinct filename before we copy it (avoid name clashes)
 function addFileNumber(file) {
     var newName = FileCounter + file.name;
@@ -174,7 +182,7 @@ function addFileNumber(file) {
     }
 
 function isKnownExtension(extension) {
-    return extension =='jpg' || extension == 'jpeg' || extension == 'tif' || extension == 'psd' || extension =='eps' || extension == 'pdf' || extension == 'ai';
+    return extension =='jpg' || extension == 'jpeg' || extension == 'tif' || extension == 'png' || extension == 'psd' || extension =='eps' || extension == 'pdf' || extension == 'ai';
     }
 
 function findImage(directory) {
