@@ -147,7 +147,7 @@ function renderBrandingEntry(branding, textFrame, brandingsHeaderAlreadyRendered
 function renderInitialCosts(initialCosts, textFrame) {
     textFrame.parentStory.insertionPoints[-1].contents = "\n";
     var font0 = new FontInfo(6, "Helvetica Neue LT Pro	57 Condensed", document.colors.itemByName("Black"));
-    setFontAndTextParentStory("Initiale Kosten: " + initialCosts + " €", font0, textFrame, 7);
+    setFontAndTextParentStory("Druckvorkosten: " + initialCosts + " €", font0, textFrame, 7);
     }
 
 function renderFilmCosts(filmCosts, textFrame) {
