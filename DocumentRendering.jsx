@@ -207,11 +207,12 @@ function setFontAndTextParentStory(text, fontInfo, textFrame, leadingVal) {
 function setFontAndTextParentStoryWithThousandsSeparator(text, fontInfo, textFrame, leadingVal) {            
       try {
             var firstInsertionPoint = textFrame.insertionPoints[-1].index;
-            
             var wert = parseInt(text);
             if(!isNaN(wert)) {
                 text = wert.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                 }
+            else
+                logCritical('The string ' + text + ' could not be parsed to number');
             
             textFrame.parentStory.insertionPoints[-1].contents = text;
             
@@ -254,6 +255,8 @@ function setFontAndTextWithThousandsSeparator(text, fontInfo, textFrame, leading
     if(!isNaN(wert)) {
         text = wert.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
         }
+    else
+        logCritical('The string ' + text + ' could not be parsed to number');
     setFontAndText (text, fontInfo, textFrame, leadingVal);
     }
 
