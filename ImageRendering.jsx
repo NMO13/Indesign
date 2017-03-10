@@ -103,8 +103,14 @@ function placeImageInRect(image, page) {
         
         isValidImage = true;
         
-        rect.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);
-        image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, 80]);
+        var width = rect.visibleBounds[3] - rect.visibleBounds[1];
+        var height = rect.visibleBounds[2] - rect.visibleBounds[0];
+        
+        var ratio = width / 80;
+        var newHeight = height / ratio;
+        
+        rect.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, newHeight]);
+        image.resize(CoordinateSpaces.innerCoordinates, AnchorPoint.centerAnchor, ResizeMethods.REPLACING_CURRENT_DIMENSIONS_WITH, [80, newHeight]);
         rect.strokeWeight = 0; 
     }
     catch(e) {
